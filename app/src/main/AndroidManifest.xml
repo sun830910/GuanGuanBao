@@ -52,7 +52,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.FullScannerActivity" />
         <activity
             android:name=".view.BaseScannerActivity"
             android:label="@string/title_activity_base_scanner"
