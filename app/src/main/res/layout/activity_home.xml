@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.enjoygreenlife.guanguanbao.HomeActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorGreen"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/home_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="20sp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3">
+
+                    <TextView
+                        android:id="@+id/total_co2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:text="220"
+                        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textSize="64sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/title_total_co2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_co2"
+                        android:text="@string/title_total_co2"
+                        android:textAlignment="center"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/unit_co2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/total_co2"
+                        android:layout_toRightOf="@+id/total_co2"
+                        android:text="@string/unit_co2_gram" />
+
+                    <ImageView
+                        android:id="@+id/image_medal"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toRightOf="@+id/total_co2"
+                        app:srcCompat="@drawable/img_bronze_medal" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginRight="4sp"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/rectangle_drawable"
+                    android:paddingBottom="10sp"
+                    android:paddingTop="10sp">
+
+                    <TextView
+                        android:id="@+id/total_bottles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:text="160"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/unit_bottles"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/total_bottles"
+                        android:layout_toRightOf="@id/total_bottles"
+                        android:text="@string/unit_bottle" />
+
+                    <TextView
+                        android:id="@+id/title_total_bottles"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_bottles"
+                        android:text="@string/title_total_bottles"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginRight="4sp"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/rectangle_drawable"
+                    android:paddingBottom="10sp"
+                    android:paddingTop="10sp">
+
+                    <TextView
+                        android:id="@+id/title_total_points"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_points"
+                        android:text="@string/title_total_points"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/total_points"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:text="160"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="30sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="4sp"
+                    android:layout_marginRight="4sp"
+                    android:layout_weight="0.3"
+                    android:background="@drawable/rectangle_drawable"
+                    android:paddingBottom="10sp"
+                    android:paddingTop="10sp">
+
+                    <TextView
+                        android:id="@+id/total_rewards"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_weight="1"
+                        android:text="23.22"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/title_total_rewards"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/total_rewards"
+                        android:text="@string/title_total_rewards"
+                        android:textAlignment="center"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20sp"
+                android:paddingRight="20sp">
+
+                <ImageView
+                    android:id="@+id/image_info"
+                    android:layout_width="40sp"
+                    android:layout_height="40sp"
+                    android:layout_margin="8sp"
+                    app:srcCompat="@drawable/img_info" />
+
+                <TextView
+                    android:id="@+id/home_title_msg_02"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@id/image_info"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@id/image_info"
+                    android:text="@string/home_info_msg_02" />
+
+                <TextView
+                    android:id="@+id/home_title_msg_01"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@id/image_info"
+                    android:layout_toRightOf="@id/image_info"
+                    android:text="@string/home_info_msg_01" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.amap.api.maps.MapView
+                    android:id="@+id/map"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/colorGreen"
+        app:menu="@menu/navigation" />
+
+</LinearLayout>

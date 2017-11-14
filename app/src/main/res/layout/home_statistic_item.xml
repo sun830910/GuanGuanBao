@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/total_co2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="220"
+                android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/title_total_co2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_co2"
+                android:text="@string/title_total_bottles"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/unit_co2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/total_co2"
+                android:layout_toRightOf="@+id/total_co2"
+                android:text="@string/unit_co2_gram" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/total_bottles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="160"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/unit_bottles"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/total_bottles"
+                android:layout_toRightOf="@id/total_bottles"
+                android:text="@string/unit_co2_gram" />
+
+            <TextView
+                android:id="@+id/title_total_bottles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_bottles"
+                android:text="@string/title_total_bottles"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/title_total_points"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_points"
+                android:text="@string/title_total_points"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/total_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="160"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.3">
+
+            <TextView
+                android:id="@+id/total_rewards"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_weight="1"
+                android:text="23.22"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/title_total_rewards"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/total_rewards"
+                android:text="@string/title_total_rewards"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

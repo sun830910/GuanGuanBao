@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">罐罐寶</string>
+    <string name="title_home">主頁</string>
+    <string name="title_notifications">通知</string>
+    <string name="title_qrscanner">掃碼回收</string>
+    <string name="title_settings">設定</string>
+
+    <string name="unit_co2_gram">公克</string>
+    <string name="title_total_co2">减少碳足迹</string>
+
+    <string name="unit_bottle">個</string>
+    <string name="title_total_bottles">累積數量</string>
+
+    <string name="title_total_points">當前積分</string>
+
+    <string name="title_total_rewards">累積現金</string>
+</resources>
