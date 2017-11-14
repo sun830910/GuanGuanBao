@@ -17,5 +17,6 @@
 
     <string name="home_info_msg_01">· 10月份已回收45个宝特瓶</string>
     <string name="home_info_msg_02">· 本月您的环保奖章已升级成为金牌</string>
+    <string name="title_activity_base_scanner">BaseScannerActivity</string>
 
 </resources>
