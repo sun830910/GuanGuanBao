@@ -45,11 +45,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 case R.id.navigation_home:
                     _homeView.setVisibility(View.VISIBLE);
                     return true;
-                case R.id.navigation_dashboard:
+                case R.id.navigation_qrcode:
                     _homeView.setVisibility(View.INVISIBLE);
                     launchActivity(BaseScannerActivity.class);
                     return true;
-                case R.id.navigation_notifications:
+                case R.id.navigation_settings:
                     _homeView.setVisibility(View.INVISIBLE);
                     return true;
             }
@@ -76,11 +76,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
         if (requestCode == 999) {
-            String message = data.getStringExtra("MESSAGE");
-            navigation.getMenu().getItem(0).setChecked(true);
-            navigation.getMenu().getItem(1).setChecked(false);
+            if (data.getBooleanExtra("SUCCESS", false)) {
+                String message = data.getStringExtra("MESSAGE");
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            } else {
+                System.out.println("CLOSE");
+            }
             mOnNavigationItemSelectedListener.onNavigationItemSelected(navigation.getMenu().getItem(0));
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -109,7 +111,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             aMap = mapView.getMap();
             setUpMap();
         }
-
+        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         //设置SDK 自带定位消息监听
         aMap.setOnMyLocationChangeListener(this);
     }
@@ -119,14 +121,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      * 设置一些amap的属性
      */
     private void setUpMap() {
-
         // 如果要设置定位的默认状态，可以在此处进行设置
         myLocationStyle = new MyLocationStyle();
         aMap.setMyLocationStyle(myLocationStyle);
 
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
-
     }
 
     /**
@@ -176,7 +176,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 String errorInfo = bundle.getString(MyLocationStyle.ERROR_INFO);
                 // 定位类型，可能为GPS WIFI等，具体可以参考官网的定位SDK介绍
                 int locationType = bundle.getInt(MyLocationStyle.LOCATION_TYPE);
-                aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
                 /*
                 errorCode
                 errorInfo
