@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.enjoygreenlife.guanguanbao.HomeActivity">
+    tools:context="com.enjoygreenlife.guanguanbao.view.HomeActivity">
 
+    <!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
+    -->
     <FrameLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
@@ -29,6 +30,59 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorGreen"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true">
+
+                    <ImageView
+                        android:id="@+id/icon_personal_pic"
+                        android:layout_width="40sp"
+                        android:layout_height="40sp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="4sp"
+                        app:srcCompat="@drawable/ic_user" />
+
+                    <TextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/icon_personal_pic"
+                        android:paddingTop="4sp"
+                        android:text="@string/user_name" />
+
+                    <TextView
+                        android:id="@+id/user_phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/icon_personal_pic"
+                        android:layout_toRightOf="@id/icon_personal_pic"
+                        android:paddingBottom="4sp"
+                        android:text="@string/user_phone" />
+
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="8sp"
+                    android:layout_marginBottom="8sp"
+                    android:layout_marginLeft="8sp"
+                    android:layout_marginRight="8sp"
+                    android:layout_marginTop="8sp"
+                    android:elevation="0dp"
+                    android:text="无锡" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"

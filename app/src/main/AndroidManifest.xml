@@ -44,7 +44,7 @@
             android:value="96614f3af21df3520674370289f0e649" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name=".view.HomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -54,8 +54,8 @@
         </activity>
         <activity
             android:name=".view.BaseScannerActivity"
-            android:label="@string/title_activity_base_scanner"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".view.SettingsMenuActivity"></activity>
     </application>
 
 </manifest>

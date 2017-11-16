@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao;
+package com.enjoygreenlife.guanguanbao.view;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +20,7 @@ import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
-import com.enjoygreenlife.guanguanbao.view.BaseScannerActivity;
+import com.enjoygreenlife.guanguanbao.R;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {
@@ -29,12 +28,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private Class<?> mClss;
 
-    private MapView mapView = null;
-    private AMap aMap = null;
-    private MyLocationStyle myLocationStyle;
+    private MapView _mapView = null;
+    private AMap _aMap = null;
+    private MyLocationStyle _myLocationStyle;
 
     private LinearLayout _homeView;
-    private BottomNavigationView navigation;
+    private BottomNavigationView _navigation;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +50,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                     return true;
                 case R.id.navigation_settings:
                     _homeView.setVisibility(View.INVISIBLE);
+                    launchActivity(SettingsMenuActivity.class);
                     return true;
             }
             return false;
@@ -58,15 +58,21 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
 
     };
 
-    public void launchActivity(Class<?> clss) {
+    public void launchActivity(Class<?> className) {
+        mClss = className;
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
-            mClss = clss;
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
+            this.launchActivity(className);
         } else {
-            Intent intent = new Intent(this, clss);
-            startActivityForResult(intent, 999);
+            Intent intent = new Intent(this, className);
+            if (mClss.equals(BaseScannerActivity.class)) {
+                startActivityForResult(intent, 999);
+            } else if (mClss.equals(SettingsMenuActivity.class)) {
+                startActivityForResult(intent, 998);
+            }
+
         }
     }
 
@@ -82,7 +88,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             } else {
                 System.out.println("CLOSE");
             }
-            mOnNavigationItemSelectedListener.onNavigationItemSelected(navigation.getMenu().getItem(0));
+            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+        } else if (requestCode == 998) {
+            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         }
     }
 
@@ -91,29 +99,34 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        processViews(savedInstanceState);
+    }
+
+    private void processViews(Bundle savedInstanceState) {
         _homeView = (LinearLayout) findViewById(R.id.home_frame);
 
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        // Set up on Top Toolbar
+//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+//        setSupportActionBar(myToolbar);
 
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        _navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        _navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mapView = (MapView) findViewById(R.id.map);
-        mapView.onCreate(savedInstanceState);// 此方法必须重写
+        _mapView = (MapView) findViewById(R.id.map);
+        _mapView.onCreate(savedInstanceState);// 此方法必须重写
 
-        init();
+        mapInit();
     }
 
-    private void init() {
-        if (aMap == null) {
-            aMap = mapView.getMap();
+    private void mapInit() {
+        if (_aMap == null) {
+            _aMap = _mapView.getMap();
             setUpMap();
         }
-        aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
+        _aMap.moveCamera(CameraUpdateFactory.zoomTo(15));
         //设置SDK 自带定位消息监听
-        aMap.setOnMyLocationChangeListener(this);
+        _aMap.setOnMyLocationChangeListener(this);
     }
 
 
@@ -122,11 +135,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     private void setUpMap() {
         // 如果要设置定位的默认状态，可以在此处进行设置
-        myLocationStyle = new MyLocationStyle();
-        aMap.setMyLocationStyle(myLocationStyle);
+        _myLocationStyle = new MyLocationStyle();
+        _aMap.setMyLocationStyle(_myLocationStyle);
 
-        aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
-        aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
+        _aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
+        _aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
     }
 
     /**
@@ -135,7 +148,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     @Override
     protected void onResume() {
         super.onResume();
-        mapView.onResume();
+        _mapView.onResume();
     }
 
     /**
@@ -144,7 +157,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     @Override
     protected void onPause() {
         super.onPause();
-        mapView.onPause();
+        _mapView.onPause();
     }
 
     /**
@@ -153,7 +166,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        mapView.onSaveInstanceState(outState);
+        _mapView.onSaveInstanceState(outState);
     }
 
     /**
@@ -162,7 +175,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapView.onDestroy();
+        _mapView.onDestroy();
     }
 
     @Override

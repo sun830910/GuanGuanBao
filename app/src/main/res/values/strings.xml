@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">罐罐宝</string>
+
+    <string name="user_name">蔡易儒</string>
+    <string name="user_phone">15618010053</string>
+
     <string name="title_home">主頁</string>
     <string name="title_notifications">消息</string>
     <string name="title_qrscanner">扫码回收</string>
@@ -7,16 +11,18 @@
 
     <string name="unit_co2_gram">公克</string>
     <string name="title_total_co2">减少碳足迹</string>
-
     <string name="unit_bottle">個</string>
     <string name="title_total_bottles">累積數量</string>
-
     <string name="title_total_points">當前積分</string>
-
     <string name="title_total_rewards">累積現金</string>
+
+    <string name="title_edit_personal">帳號設定</string>
+    <string name="title_edit_general">通用設定</string>
+    <string name="title_edit_privacy">隱私設定</string>
+    <string name="title_help">系統求助</string>
+    <string name="title_about">關於軟件</string>
 
     <string name="home_info_msg_01">· 10月份已回收45个宝特瓶</string>
     <string name="home_info_msg_02">· 本月您的环保奖章已升级成为金牌</string>
-    <string name="title_activity_base_scanner">BaseScannerActivity</string>
 
 </resources>
