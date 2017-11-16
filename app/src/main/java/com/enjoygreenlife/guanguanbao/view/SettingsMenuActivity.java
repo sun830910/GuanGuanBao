@@ -3,7 +3,10 @@ package com.enjoygreenlife.guanguanbao.view;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.SettingItem;
@@ -23,6 +26,27 @@ public class SettingsMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings_menu);
 
+        processView();
+
+        processController();
+
+    }
+
+    private void processController() {
+        // ListView Item Click Listener
+        AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Toast.makeText(SettingsMenuActivity.this,
+                        _settingItemList.get(position).GetTitle(), Toast.LENGTH_LONG).show();
+            }
+        };
+
+        _settingListView.setOnItemClickListener(itemListener);
+    }
+
+    private void processView() {
         // Set up on Top Toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
