@@ -105,11 +105,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private void processViews(Bundle savedInstanceState) {
         _homeView = (LinearLayout) findViewById(R.id.home_frame);
 
-
-        // Set up on Top Toolbar
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
-//        setSupportActionBar(myToolbar);
-
         _navigation = (BottomNavigationView) findViewById(R.id.navigation);
         _navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
@@ -182,7 +177,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     public void onMyLocationChange(Location location) {
         // 定位回调监听
         if (location != null) {
-            Log.e("amap", "onMyLocationChange 定位成功， lat: " + location.getLatitude() + " lon: " + location.getLongitude());
+//            Log.e("amap", "onMyLocationChange 定位成功， lat: " + location.getLatitude() + " lon: " + location.getLongitude());
             Bundle bundle = location.getExtras();
             if (bundle != null) {
                 int errorCode = bundle.getInt(MyLocationStyle.ERROR_CODE);
@@ -194,13 +189,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 errorInfo
                 locationType
                 */
-                Log.e("amap", "定位信息， code: " + errorCode + " errorInfo: " + errorInfo + " locationType: " + locationType);
+//                Log.e("amap", "定位信息， code: " + errorCode + " errorInfo: " + errorInfo + " locationType: " + locationType);
             } else {
-                Log.e("amap", "定位信息， bundle is null ");
+//                Log.e("amap", "定位信息， bundle is null ");
             }
 
         } else {
-            Log.e("amap", "定位失败");
+//            Log.e("amap", "定位失败");
         }
     }
 

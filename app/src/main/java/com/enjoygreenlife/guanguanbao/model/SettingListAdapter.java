@@ -1,6 +1,7 @@
 package com.enjoygreenlife.guanguanbao.model;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,27 +18,28 @@ import java.util.List;
  */
 
 public class SettingListAdapter extends BaseAdapter {
-    private LayoutInflater myInflater;
-    private List<SettingItem> settingItemList;
-
+    private LayoutInflater _myInflater;
+    private List<SettingItem> _settingItemList;
+    private Context _context;
     public SettingListAdapter(Context context, List<SettingItem> movie) {
-        myInflater = LayoutInflater.from(context);
-        this.settingItemList = movie;
+        _context = context;
+        _myInflater = LayoutInflater.from(context);
+        this._settingItemList = movie;
     }
 
     @Override
     public int getCount() {
-        return settingItemList.size();
+        return _settingItemList.size();
     }
 
     @Override
     public Object getItem(int arg0) {
-        return settingItemList.get(arg0);
+        return _settingItemList.get(arg0);
     }
 
     @Override
     public long getItemId(int position) {
-        return settingItemList.indexOf(getItem(position));
+        return _settingItemList.indexOf(getItem(position));
     }
 
     @Override
@@ -51,9 +53,10 @@ public class SettingListAdapter extends BaseAdapter {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            convertView = myInflater.inflate(R.layout.setting_list_item, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.list_item_title);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.list_item_icon);
+            convertView = _myInflater.inflate(R.layout.setting_list_item, parent, false);
+            viewHolder.itemName = (TextView) convertView.findViewById(R.id.list_item_title);
+            viewHolder.icon = (ImageView) convertView.findViewById(R.id.list_item_icon);
+            viewHolder.arrow = (ImageView) convertView.findViewById(R.id.list_item_arrow);
 
             result = convertView;
 
@@ -63,14 +66,17 @@ public class SettingListAdapter extends BaseAdapter {
             result = convertView;
         }
 
-        viewHolder.txtName.setText(settingItem.GetTitle());
+        viewHolder.itemName.setText(settingItem.GetTitle());
+        viewHolder.icon.setImageResource(_context.getResources().getIdentifier(settingItem.getImgResName(),"drawable","com.enjoygreenlife.guanguanbao"));
+        viewHolder.arrow.setImageResource(R.drawable.ic_next);
         // Return the completed view to render on screen
         return convertView;
     }
 
     // View lookup cache
     private static class ViewHolder {
-        TextView txtName;
-        ImageView info;
+        TextView itemName;
+        ImageView icon;
+        ImageView arrow;
     }
 }

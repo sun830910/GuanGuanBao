@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SettingsMenuActivity extends AppCompatActivity {
 
-    List<SettingItem> settingItemList = new ArrayList<SettingItem>();
-    private ListView listV;
-    private SettingListAdapter adapter;
+    List<SettingItem> _settingItemList = new ArrayList<SettingItem>();
+    private ListView _settingListView;
+    private SettingListAdapter _settingListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,18 +26,19 @@ public class SettingsMenuActivity extends AppCompatActivity {
         // Set up on Top Toolbar
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(getString(R.string.bar_title_settings));
 
-        listV = (ListView) findViewById(R.id.setting_list);
+        _settingListView = (ListView) findViewById(R.id.setting_list);
 
-        settingItemList.add(new SettingItem("帳號管理"));
-        settingItemList.add(new SettingItem("通用管理"));
-        settingItemList.add(new SettingItem("隱私設定"));
-        settingItemList.add(new SettingItem("系統求助"));
-        settingItemList.add(new SettingItem("關於軟件"));
+        _settingItemList.add(new SettingItem(getString(R.string.title_edit_personal), "ic_edit_personal"));
+        _settingItemList.add(new SettingItem(getString(R.string.title_edit_general), "ic_general_setting"));
+        _settingItemList.add(new SettingItem(getString(R.string.title_edit_privacy), "ic_privacy"));
+        _settingItemList.add(new SettingItem(getString(R.string.title_help), "ic_megaphone"));
+        _settingItemList.add(new SettingItem(getString(R.string.title_about), "ic_app_info"));
 
-        adapter = new SettingListAdapter(getApplicationContext(), settingItemList);
+        _settingListAdapter = new SettingListAdapter(getApplicationContext(), _settingItemList);
 
-        listV.setAdapter(adapter);
+        _settingListView.setAdapter(_settingListAdapter);
     }
 
     @Override
