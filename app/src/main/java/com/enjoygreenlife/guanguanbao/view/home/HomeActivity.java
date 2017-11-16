@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view;
+package com.enjoygreenlife.guanguanbao.view.home;
 
 import android.Manifest;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -21,6 +20,8 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.view.scanner.BaseScannerActivity;
+import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {

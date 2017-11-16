@@ -44,7 +44,7 @@
             android:value="96614f3af21df3520674370289f0e649" />
 
         <activity
-            android:name=".view.HomeActivity"
+            android:name=".view.home.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -54,11 +54,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.BaseScannerActivity"
+            android:name=".view.scanner.BaseScannerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".view.SettingsMenuActivity"
+            android:name=".view.settings.SettingsMenuActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

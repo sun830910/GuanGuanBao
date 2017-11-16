@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view;
+package com.enjoygreenlife.guanguanbao.view.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,7 +56,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 
         _settingItemList.add(new SettingItem(getString(R.string.title_edit_personal), "ic_edit_personal"));
         _settingItemList.add(new SettingItem(getString(R.string.title_edit_general), "ic_general_setting"));
-        _settingItemList.add(new SettingItem(getString(R.string.title_edit_privacy), "ic_privacy"));
+//        _settingItemList.add(new SettingItem(getString(R.string.title_edit_privacy), "ic_privacy"));
         _settingItemList.add(new SettingItem(getString(R.string.title_help), "ic_megaphone"));
         _settingItemList.add(new SettingItem(getString(R.string.title_about), "ic_app_info"));
 

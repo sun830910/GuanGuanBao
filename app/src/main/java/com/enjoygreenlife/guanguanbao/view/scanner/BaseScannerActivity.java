@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view;
+package com.enjoygreenlife.guanguanbao.view.scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
