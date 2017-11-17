@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">罐罐宝</string>
 
-    <string name="login_app_name">綠享生活罐罐寶</string>
-    <string name="login_recycle_name">智能回收機</string>
+    <string name="login_app_name">绿享生活罐罐宝</string>
+    <string name="login_recycle_name">智能回收机</string>
 
     <string name="user_name">蔡易儒</string>
     <string name="user_phone">15618010053</string>
@@ -11,6 +11,8 @@
     <string name="user_name_hint">请输入帐号</string>
     <string name="user_password_hint">请输入密码</string>
     <string name="title_loginButton">登入</string>
+    <string name="title_register">注册</string>
+    <string name="title_forgetPassword">忘记密码?</string>
 
     <string name="title_home">主页</string>
     <string name="title_notifications">消息</string>
