@@ -9,13 +9,12 @@ import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
+import com.enjoygreenlife.guanguanbao.model.URLFactory;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 import com.google.gson.Gson;
-
-import okhttp3.OkHttpClient;
 
 public class LoginActivity extends AppCompatActivity {
 
-    OkHttpClient client = new OkHttpClient();
 
     private TextView _userName;
     private TextView _userPassword;
@@ -24,7 +23,9 @@ public class LoginActivity extends AppCompatActivity {
     private TextView _forgetPassword;
 
     private void login() {
-
+        String json = "{\"route\":\"login\",\"member\":{\"userName\":\"cliff6\",\"userPassword\":\"cliffk123\"}}";
+        HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
+        httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json);
     }
 
 
@@ -58,7 +59,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (checkInputValue()) {
-                   parseResponse();
+                    login();
+//                   parseResponse();
 //                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "不可為空！！", Toast.LENGTH_LONG).show();
