@@ -52,6 +52,7 @@ dependencies {
     compile 'com.amap.api:location:latest.integration'
     compile 'com.amap.api:map2d:latest.integration'
     compile 'me.dm7.barcodescanner:zxing:1.9.8'
+    compile 'com.squareup.okhttp3:okhttp:3.9.0'
     testCompile 'junit:junit:4.12'
     compile files('libs/protobuf-java-2.6.1.jar')
     compile files('libs/google-http-client-1.23.0.jar')
