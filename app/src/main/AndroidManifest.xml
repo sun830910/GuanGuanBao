@@ -59,7 +59,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.settings.SettingsMenuActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.login.LoginActivity"></activity>
     </application>
 
 </manifest>
