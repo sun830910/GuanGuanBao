@@ -1,9 +1,8 @@
 package com.enjoygreenlife.guanguanbao.view.home;
 
 import android.Manifest;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -11,10 +10,12 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.amap.api.maps.AMap;
@@ -22,23 +23,36 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.view.login.LoginActivity;
 import com.enjoygreenlife.guanguanbao.view.scanner.BaseScannerActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {
-
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int ZXING_CAMERA_PERMISSION = 1;
+    private final SharedFileHandler _sharedFileHandler = new SharedFileHandler();
+    private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
     private Class<?> mClss;
-
+    //AMAP
     private MapView _mapView = null;
     private AMap _aMap = null;
     private MyLocationStyle _myLocationStyle;
-
+    //Custom Layouts
     private LinearLayout _homeView;
     private BottomNavigationView _navigation;
-
+    private TextView _userNameText;
+    private TextView _userPhoneText;
+    private TextView _totalCO2Text;
+    private TextView _totalBottlesText;
+    private TextView _totalPointsText;
+    private TextView _totalRewards;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -75,6 +89,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 startActivityForResult(intent, 999);
             } else if (mClss.equals(SettingsMenuActivity.class)) {
                 startActivityForResult(intent, 998);
+            } else if (mClss.equals(LoginActivity.class)) {
+                startActivityForResult(intent, 997);
             }
 
         }
@@ -95,6 +111,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == 998) {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+        } else if (requestCode == 997) {
+            getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         }
     }
 
@@ -103,10 +122,94 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+//        if (checkLocationPermission()) {
+//            if (ContextCompat.checkSelfPermission(this,
+//                    Manifest.permission.ACCESS_FINE_LOCATION)
+//                    == PackageManager.PERMISSION_GRANTED) {
+//
+//            }
+//        }
+
         processViews(savedInstanceState);
 
-        if(retreiveUserSession().length() != 0) {
+        checkLoginStatus();
+    }
 
+    public boolean checkLocationPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.title_location_permission)
+                        .setMessage(R.string.text_location_permission)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                //Prompt the user once explanation has been shown
+                                ActivityCompat.requestPermissions(HomeActivity.this,
+                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                        MY_PERMISSIONS_REQUEST_LOCATION);
+                            }
+                        })
+                        .create()
+                        .show();
+
+
+            } else {
+                // No explanation needed, we can request the permission.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        MY_PERMISSIONS_REQUEST_LOCATION);
+            }
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this,
+                            Manifest.permission.ACCESS_FINE_LOCATION)
+                            == PackageManager.PERMISSION_GRANTED) {
+
+                    }
+
+                } else {
+
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+
+                }
+                return;
+            }
+
+        }
+    }
+
+    private void checkLoginStatus() {
+        if (_sharedFileHandler.retreiveUserSession(HomeActivity.this) == null) {
+            Toast.makeText(HomeActivity.this, "尚未登入", Toast.LENGTH_LONG).show();
+            launchActivity(LoginActivity.class);
+        } else {
+            getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
         }
     }
 
@@ -118,6 +221,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
 
         _mapView = (MapView) findViewById(R.id.map);
         _mapView.onCreate(savedInstanceState);// 此方法必须重写
+
+        _userNameText = (TextView) findViewById(R.id.user_name);
+        _userPhoneText = (TextView) findViewById(R.id.user_phone);
+        _totalCO2Text = (TextView) findViewById(R.id.total_co2);
+        _totalBottlesText = (TextView) findViewById(R.id.total_bottles);
+        _totalPointsText = (TextView) findViewById(R.id.total_points);
+        _totalRewards = (TextView) findViewById(R.id.total_rewards);
 
         mapInit();
     }
@@ -132,23 +242,46 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _aMap.setOnMyLocationChangeListener(this);
     }
 
-    private void getUserData(String session) {
+    private void getUserData(String session, String userID) {
 
+        String json = _apiJsonFactory.getUserInfoJson(session, userID);
+
+        // Call Connection Tool to process login
+        HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
+        httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
+            @Override
+            public void onSuccess(String result) {
+                final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
+                System.out.println(result);
+                if (userLoginResponse.getCode() == 1) {
+
+                    //Store session to SharedPreferences
+                    SharedFileHandler sharedFileHandler = new SharedFileHandler();
+                    sharedFileHandler.saveUserSession(HomeActivity.this, userLoginResponse);
+
+                    // Update UI
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+//                            _progress.setVisibility(View.INVISIBLE);
+                            _userNameText.setText(userLoginResponse.getUser().getUserName());
+                            _userPhoneText.setText(userLoginResponse.getUser().getPhoneNumber());
+                            _totalCO2Text.setText("" + userLoginResponse.getUser().getTotalCoals());
+                            _totalBottlesText.setText("" + userLoginResponse.getUser().getTotalNums());
+                            _totalPointsText.setText("" + userLoginResponse.getUser().getSumPoint());
+                            _totalRewards.setText("" + userLoginResponse.getUser().getWallet());
+
+                            Toast.makeText(HomeActivity.this, "已抓到登入", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                } else {
+                    launchActivity(LoginActivity.class);
+                }
+            }
+        });
     }
 
-    private void saveUserSession(UserLoginResponse userLoginResponse) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(
-                getString(R.string.user_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("user_session", userLoginResponse.getSession()); // Storing string
-        editor.commit(); // commit changes
-    }
-
-    private String retreiveUserSession() {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(
-                getString(R.string.user_file_key), Context.MODE_PRIVATE);
-        return pref.getString("user_session", null);
-    }
 
     /**
      * 设置一些amap的属性

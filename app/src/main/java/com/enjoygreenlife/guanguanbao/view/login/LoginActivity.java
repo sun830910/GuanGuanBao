@@ -1,7 +1,6 @@
 package com.enjoygreenlife.guanguanbao.view.login;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,11 +11,11 @@ import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
-import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -37,18 +36,23 @@ public class LoginActivity extends AppCompatActivity {
         httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
-                UserLoginResponse userLoginResponse = parseResponse(result);
+                UserLoginResponse userLoginResponse = new ApiJsonFactory().parseUserLoginResponse(result);
                 if (userLoginResponse.getCode() == 1) {
 
                     //Store session to SharedPreferences
-                    saveUserSession(userLoginResponse);
+                    SharedFileHandler sharedFileHandler = new SharedFileHandler();
+                    sharedFileHandler.saveUserSession(LoginActivity.this, userLoginResponse);
 
                     // Update UI
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             _progress.setVisibility(View.INVISIBLE);
-                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+//                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("LOGIN_SUCCESS", true);
+                            setResult(999, intent);
+                            finish();
                         }
                     });
                 } else {
@@ -65,19 +69,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void saveUserSession(UserLoginResponse userLoginResponse) {
-        SharedPreferences pref = getApplicationContext().getSharedPreferences(
-                getString(R.string.user_file_key), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("user_session", userLoginResponse.getSession()); // Storing string
-        editor.commit(); // commit changes
-    }
-
-    private UserLoginResponse parseResponse(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, UserLoginResponse.class);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,6 +76,10 @@ public class LoginActivity extends AppCompatActivity {
 
         processView();
         processController();
+    }
+
+    @Override
+    public void onBackPressed() {
     }
 
     private void processView() {
@@ -136,4 +131,5 @@ public class LoginActivity extends AppCompatActivity {
             return false;
         }
     }
+
 }

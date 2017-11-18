@@ -35,6 +35,12 @@ public class User {
 
     private int rankId = 0;
 
+    private double sumPoint = 0.0;
+
+    private int totalNums = 0;
+
+    private double totalCoals = 0.0;
+
     public User() {
 
     }
@@ -93,5 +99,17 @@ public class User {
 
     public int getRankId() {
         return rankId;
+    }
+
+    public double getSumPoint() {
+        return sumPoint;
+    }
+
+    public int getTotalNums() {
+        return totalNums;
+    }
+
+    public double getTotalCoals() {
+        return totalCoals;
     }
 }
