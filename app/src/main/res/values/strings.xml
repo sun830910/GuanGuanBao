@@ -26,4 +26,19 @@
     <string name="home_info_msg_01">· 10月份已回收45个宝特瓶</string>
     <string name="home_info_msg_02">· 本月您的环保奖章已升级成为金牌</string>
 
+
+    <string name="opinion_title">意见反馈</string>
+    <string name="opinion_abnormal">功能异常</string>
+    <string name="opinion_suggestion">产品建议：不好用，我有建议</string>
+    <string name="opinion_other">其他问题</string>
+    <string name="opinion_text">请补充详细问题或意见</string>
+    <string name="opinion_sent">提交</string>
+    <string name="opinion_hint">请输入不大于20字的描述</string>
+    <string name="opinion_thank">感谢您给予的宝贵意见，系统将尽快处理您的问题及建议</string>
+
+    <string name="about_app_version">版本</string>
+    <string name="about_app_information">版权信息</string>
+    <string name="version_unknown">未知版本</string>
+
+
 </resources>
