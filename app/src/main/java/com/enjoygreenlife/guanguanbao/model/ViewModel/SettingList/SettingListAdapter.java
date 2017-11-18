@@ -1,7 +1,6 @@
-package com.enjoygreenlife.guanguanbao.model;
+package com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

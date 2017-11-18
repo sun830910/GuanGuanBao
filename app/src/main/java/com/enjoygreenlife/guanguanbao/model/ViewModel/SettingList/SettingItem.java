@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.model;
+package com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList;
 
 import android.media.Image;
 

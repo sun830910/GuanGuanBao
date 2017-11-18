@@ -84,7 +84,7 @@ public class HttpConnectionTool {
 
     }
 
-    public void postMethod(String url, String inputString) {
+    public void postMethod(String url, String inputString, final HttpConnectionToolCallback callback) {
         final MediaType MEDIA_TYPE_JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
@@ -109,8 +109,7 @@ public class HttpConnectionTool {
                             for (int i = 0, size = responseHeaders.size(); i < size; i++) {
                                 System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
                             }
-
-                            System.out.println(responseBody.string());
+                            callback.onSuccess(responseBody.string());
                         }
                     }
                 });

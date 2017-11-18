@@ -9,8 +9,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
-import com.enjoygreenlife.guanguanbao.model.SettingItem;
-import com.enjoygreenlife.guanguanbao.model.SettingListAdapter;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

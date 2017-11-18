@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.model;
+package com.enjoygreenlife.guanguanbao.model.ApiModel;
 
 /**
  * Created by luthertsai on 2017/11/17.

@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
-import com.enjoygreenlife.guanguanbao.model.URLFactory;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
 import com.google.gson.Gson;
 
 public class LoginActivity extends AppCompatActivity {
@@ -21,20 +24,40 @@ public class LoginActivity extends AppCompatActivity {
     private Button _loginButton;
     private TextView _register;
     private TextView _forgetPassword;
+    private ProgressBar _progress;
 
     private void login() {
-        String json = "{\"route\":\"login\",\"member\":{\"userName\":\"cliff6\",\"userPassword\":\"cliffk123\"}}";
+        _progress.setVisibility(View.VISIBLE);
+        String json = new ApiJsonFactory().getLoginJson(_userName.getText().toString(), _userPassword.getText().toString());
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json);
+        httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json, new HttpConnectionToolCallback() {
+            @Override
+            public void onSuccess(String result) {
+                UserLoginResponse userLoginResponse = parseResponse(result);
+                if (userLoginResponse.getCode() == 1) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            _progress.setVisibility(View.INVISIBLE);
+                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            _progress.setVisibility(View.INVISIBLE);
+                            Toast.makeText(LoginActivity.this, "登入失敗...請檢查帳號密碼", Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        });
     }
 
-
-    private void parseResponse(){
-        String json = "{\"code\":1,\"data\":{\"id\":\"1\",\"userName\":\"cliff6\",\"profilePhoto\":null,\"wallet\":\"421.00\",\"lockingWallet\":\"0.00\",\"address\":null,\"phoneNumber\":\"15061844637\",\"birthday\":null,\"gender\":null,\"email\":\"luckynomber72003@gmail.com\",\"ali\":null,\"qq\":null,\"wechat\":null,\"rankId\":\"1\"},\"session\":\"$2y$10$LR94UcUZu0IMgVTRfSPWo.rXGiO0u8ac530NUeldTQ9iL3519EWlO\"}";
+    private UserLoginResponse parseResponse(String json) {
         Gson gson = new Gson();
-        UserLoginResponse obj2 = gson.fromJson(json, UserLoginResponse.class);
-        System.out.println(obj2.getUser().getGender());
-
+        return gson.fromJson(json, UserLoginResponse.class);
     }
 
     @Override
@@ -52,6 +75,8 @@ public class LoginActivity extends AppCompatActivity {
         _loginButton = (Button) findViewById(R.id.loginButton);
         _register = (TextView) findViewById(R.id.registerButton);
         _forgetPassword = (TextView) findViewById(R.id.forgetPassword);
+        _progress = (ProgressBar) findViewById(R.id.progressBar);
+        _progress.setVisibility(View.INVISIBLE);
     }
 
     private void processController() {
