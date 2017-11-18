@@ -1,5 +1,7 @@
 package com.enjoygreenlife.guanguanbao.view.login;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,12 +31,19 @@ public class LoginActivity extends AppCompatActivity {
     private void login() {
         _progress.setVisibility(View.VISIBLE);
         String json = new ApiJsonFactory().getLoginJson(_userName.getText().toString(), _userPassword.getText().toString());
+
+        // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 UserLoginResponse userLoginResponse = parseResponse(result);
                 if (userLoginResponse.getCode() == 1) {
+
+                    //Store session to SharedPreferences
+                    saveUserSession(userLoginResponse);
+
+                    // Update UI
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -43,16 +52,25 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 } else {
+                    // Update UI
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             _progress.setVisibility(View.INVISIBLE);
-                            Toast.makeText(LoginActivity.this, "登入失敗...請檢查帳號密碼", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, getText(R.string.error_login_fail), Toast.LENGTH_LONG).show();
                         }
                     });
                 }
             }
         });
+    }
+
+    private void saveUserSession(UserLoginResponse userLoginResponse) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(
+                getString(R.string.user_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("user_session", userLoginResponse.getSession()); // Storing string
+        editor.commit(); // commit changes
     }
 
     private UserLoginResponse parseResponse(String json) {
@@ -88,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
 //                   parseResponse();
 //                    finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "不可為空！！", Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, getText(R.string.hint_username_password_input_null), Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -108,6 +126,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    * Check Input Data
+    */
     private boolean checkInputValue() {
         if (_userName.getText().length() != 0 & _userPassword.getText().length() != 0) {
             return true;

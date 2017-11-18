@@ -15,6 +15,7 @@ public class UserLoginResponse {
     public UserLoginResponse() {
 
     }
+
     public int getCode() {
         return code;
     }

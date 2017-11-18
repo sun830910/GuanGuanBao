@@ -1,7 +1,9 @@
 package com.enjoygreenlife.guanguanbao.view.home;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -20,6 +22,7 @@ import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
 import com.amap.api.maps.model.MyLocationStyle;
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.enjoygreenlife.guanguanbao.view.scanner.BaseScannerActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
 
@@ -101,6 +104,10 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         setContentView(R.layout.activity_home);
 
         processViews(savedInstanceState);
+
+        if(retreiveUserSession().length() != 0) {
+
+        }
     }
 
     private void processViews(Bundle savedInstanceState) {
@@ -125,6 +132,23 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _aMap.setOnMyLocationChangeListener(this);
     }
 
+    private void getUserData(String session) {
+
+    }
+
+    private void saveUserSession(UserLoginResponse userLoginResponse) {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(
+                getString(R.string.user_file_key), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("user_session", userLoginResponse.getSession()); // Storing string
+        editor.commit(); // commit changes
+    }
+
+    private String retreiveUserSession() {
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(
+                getString(R.string.user_file_key), Context.MODE_PRIVATE);
+        return pref.getString("user_session", null);
+    }
 
     /**
      * 设置一些amap的属性

@@ -10,4 +10,8 @@ public class URLFactory {
     public String getLoginURL() {
         return new String(DOMAIN_NAME + "login");
     }
+
+    public String getUerInfoURL() {
+        return new String(DOMAIN_NAME + "getUserInfo");
+    }
 }
