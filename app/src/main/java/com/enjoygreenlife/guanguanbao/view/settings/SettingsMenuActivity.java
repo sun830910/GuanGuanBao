@@ -12,6 +12,7 @@ import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.SettingItem;
 import com.enjoygreenlife.guanguanbao.model.SettingListAdapter;
 import com.enjoygreenlife.guanguanbao.view.settings.aboutApp.AboutAppActivity;
+import com.enjoygreenlife.guanguanbao.view.settings.generalSetting.GeneralSettingActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.opinion.OpinionActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.opinion.OpinionLastActivity;
 
@@ -34,7 +35,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
                 i = new Intent(SettingsMenuActivity.this,OpinionLastActivity.class);
                 break;
             case 1:
-                i = new Intent(SettingsMenuActivity.this,OpinionActivity.class);
+                i = new Intent(SettingsMenuActivity.this,GeneralSettingActivity.class);
                 break;
             case 2:
                 i = new Intent(SettingsMenuActivity.this,OpinionActivity.class);

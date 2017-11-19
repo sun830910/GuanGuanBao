@@ -21,6 +21,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="119dp"
+        android:layout_marginTop="50sp"
         android:orientation="horizontal">
 
         <TextView
@@ -31,6 +32,23 @@
             android:text="@string/opinion_thank"
 
             android:textSize="22sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:layout_marginTop="50sp">
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="30sp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rectangle_for_sent"
+            android:text="@string/opinion_back"
+            android:textSize="20sp" />
     </LinearLayout>
 
 </LinearLayout>

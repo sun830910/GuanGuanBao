@@ -56,14 +56,14 @@
         <activity
             android:name=".view.scanner.BaseScannerActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".view.settings.SettingsMenuActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".view.settings.opinion.OpinionActivity" />
         <activity android:name=".view.settings.opinion.OpinionLastActivity" />
-        <activity android:name=".view.settings.aboutApp.AboutAppActivity"></activity>
+        <activity android:name=".view.settings.aboutApp.AboutAppActivity" />
+        <activity android:name=".view.settings.generalSetting.GeneralSettingActivity"></activity>
     </application>
 
 </manifest>
