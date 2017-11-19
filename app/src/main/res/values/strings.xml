@@ -36,6 +36,8 @@
     <string name="opinion_hint">请输入不大于20字的描述</string>
     <string name="opinion_thank">感谢您给予的宝贵意见，系统将尽快处理您的问题及建议</string>
 
+
+    <string name="about">关于</string>
     <string name="about_app_version">版本</string>
     <string name="about_app_information">版权信息</string>
     <string name="version_unknown">未知版本</string>

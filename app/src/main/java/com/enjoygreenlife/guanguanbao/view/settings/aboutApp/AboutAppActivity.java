@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.enjoygreenlife.guanguanbao.R;
@@ -15,6 +16,7 @@ public class AboutAppActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
+        processView();
         TextView tv_version =(TextView) findViewById(R.id.tv_version);
 
         tv_version.setText(getVersion(this));
@@ -47,5 +49,12 @@ public class AboutAppActivity extends AppCompatActivity {
             e.printStackTrace();
             return 0;
         }
+    }
+
+    private void processView() {
+        // Set up on Top Toolbar
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+        getSupportActionBar().setTitle(getString(R.string.about));
     }
 }
