@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
-
 import com.enjoygreenlife.guanguanbao.R;
 
 public class AboutAppActivity extends AppCompatActivity {
@@ -29,8 +28,8 @@ public class AboutAppActivity extends AppCompatActivity {
     public static String getVersion(Context context)//获取版本号
     {
         try {
-            PackageInfo pi=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return pi.versionName;
+            PackageInfo packageInfo=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionName;
         } catch (PackageManager.NameNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -42,8 +41,8 @@ public class AboutAppActivity extends AppCompatActivity {
     public static int getVersionCode(Context context)//获取版本号(内部识别号)
     {
         try {
-            PackageInfo pi=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            return pi.versionCode;
+            PackageInfo packageInfo=context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return packageInfo.versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

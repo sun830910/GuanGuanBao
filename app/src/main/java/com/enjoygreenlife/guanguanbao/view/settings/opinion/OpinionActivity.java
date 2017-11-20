@@ -16,9 +16,7 @@ import com.enjoygreenlife.guanguanbao.R;
 
 public class OpinionActivity extends AppCompatActivity {
     EditText ans;//宣告意見
-    private RadioButton radioButton1;
-    private RadioButton radioButton2;
-    private RadioButton radioButton3;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +38,8 @@ public class OpinionActivity extends AppCompatActivity {
                     intent.putExtras(bundle);   // 記得put進去，不然資料不會帶過去哦
 
                     startActivity(intent);
+
+                    OpinionActivity.this.finish();
                 }
             }
         });

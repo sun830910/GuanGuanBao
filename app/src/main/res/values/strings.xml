@@ -34,8 +34,8 @@
     <string name="opinion_text">请补充详细问题或意见</string>
     <string name="opinion_sent">提交</string>
     <string name="opinion_hint">请输入不大于20字的描述</string>
-    <string name="opinion_thank">感谢您给予的宝贵意见，系统将尽快处理您的问题及建议</string>
-    <string name="opinion_back">确定</string>
+    <string name="opinion_thank">感谢您给予的宝贵意见，系统将尽快处理您的问题及建议。</string>
+    <string name="opinion_back">返回首页</string>
 
     <string name="about">关于</string>
     <string name="about_app_version">版本</string>
@@ -45,10 +45,10 @@
 
     <string name="setting_title">通用管理</string>
     <string name="setting_language">语言</string>
-    <string name="setting_notification">系统与活动通知提醒</string>
+    <string name="setting_system">系统通知提醒</string>
     <string name="setting_sound">声音</string>
     <string name="setting_vibration">震动</string>
-    <string name="setting_message">消息通知显示内容详情</string>
+    <string name="setting_event">活动通知提醒</string>
     <string name="setting_news">新闻推播通知</string>
 
 </resources>

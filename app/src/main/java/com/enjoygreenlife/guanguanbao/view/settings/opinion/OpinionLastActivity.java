@@ -18,23 +18,25 @@ public class OpinionLastActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opinion_last);
         processView();
+        onBackPressed();
         Button submit = (Button) findViewById(R.id.button_back);// 取得按鈕物件
 
         submit.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View arg0) {
                 //判斷條件 有輸入值才執行
-
-                    Intent intent = new Intent();
-                    intent.setClass(OpinionLastActivity.this, HomeActivity.class);
-                    Bundle bundle = new Bundle();
-
-                    intent.putExtras(bundle);   // 記得put進去，不然資料不會帶過去哦
-
-                    startActivity(intent);
-
+//                    Intent intent = new Intent();
+//                    intent.setClass(OpinionLastActivity.this, SettingsMenuActivity.class);
+//                    startActivity(intent);
+                    OpinionLastActivity.this.finish();
             }
         });
 
+    }
+
+
+    public void onBackPressed() {
+//        super.onBackPressed();
+//        屏蔽掉返回按键
     }
 
     private void processView() {
