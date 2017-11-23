@@ -29,7 +29,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <service android:name="com.amap.api.location.APSService" />
+    <!--<service android:name="com.amap.api.location.APSService" />-->
 
     <application
         android:allowBackup="true"
@@ -61,7 +61,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.login.LoginActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.scanner.ScannerResultActivity"></activity>
     </application>
 
 </manifest>

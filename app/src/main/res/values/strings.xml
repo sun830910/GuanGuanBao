@@ -27,6 +27,12 @@
     <string name="title_qrscanner">扫码回收</string>
     <string name="title_settings">设置</string>
 
+    <string name="title_scanner_success">扫码完成</string>
+    <string name="content_numCount_scanner_success">您在本次成功回收10個寶特瓶</string>
+    <string name="content_weightCount_scanner_success">寶特瓶總重量為500g</string>
+    <string name="content_coalCount_scanner_success">減少0.05g碳足跡</string>
+    <string name="content_point_scanner_success">共獲得3積分</string>
+
     <string name="unit_co2_gram">公克</string>
     <string name="title_total_co2">减少碳足迹</string>
     <string name="unit_bottle">个</string>
@@ -44,6 +50,6 @@
     <string name="home_info_msg_01">· 10月份已回收45个宝特瓶</string>
     <string name="home_info_msg_02">· 本月您的环保奖章已升级成为金牌</string>
 
-    <string name="user_file_key">user_data_file</string>
+    <string name="user_file_key">user_data_file_test</string>
 
 </resources>

@@ -36,12 +36,15 @@ public class LoginActivity extends AppCompatActivity {
         httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
+                System.out.println(result);
                 UserLoginResponse userLoginResponse = new ApiJsonFactory().parseUserLoginResponse(result);
-                if (userLoginResponse.getCode() == 1) {
+                String session = userLoginResponse.getSession();
+//                System.out.println("PARSE+SESSION => " + session);
 
+                if (userLoginResponse.getCode() == 1) {
                     //Store session to SharedPreferences
                     SharedFileHandler sharedFileHandler = new SharedFileHandler();
-                    sharedFileHandler.saveUserSession(LoginActivity.this, userLoginResponse);
+                    sharedFileHandler.saveUserSession(LoginActivity.this, session, userLoginResponse.getUser().getId());
 
                     // Update UI
                     runOnUiThread(new Runnable() {

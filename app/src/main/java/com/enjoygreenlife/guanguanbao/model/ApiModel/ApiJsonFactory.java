@@ -10,11 +10,22 @@ import com.google.gson.Gson;
 public class ApiJsonFactory {
 
     public String getLoginJson(String username, String userPassword) {
-        return new String("{\"route\":\"login\",\"member\":{\"userName\":\"" + username + "\",\"userPassword\":\"" + userPassword + "\"}}");
+        return "{\"route\":\"login\",\"member\":{\"userName\":\"" + username + "\",\"userPassword\":\"" + userPassword + "\"}}";
     }
 
     public String getUserInfoJson(String session, String userID) {
-        return new String("{\"route\":\"getUserInfo\",\"session\":\"" + session + "\", \"userId\":" + userID + "}");
+        return "{\"route\":\"getUserInfo\",\"session\":\"" + session + "\", \"userId\":" + userID + "}";
+    }
+
+    public String scanQRcodeJson(String session, String userID, String QRCode, String QRCodeImg, String orderNumber) {
+        return "{" +
+                "\"route\":\"scanQRcode\"," +
+                "\"session\":\"" + session + "\"," +
+                "\"userId\":" + userID + "," +
+                "\"orderNo\":\"" + orderNumber + "\"," +
+                "\"QRCode\":\"" + QRCode + "\"," +
+                "\"QRcodeImg\":\"" + QRCodeImg + "\"" +
+                "}";
     }
 
     public UserLoginResponse parseUserLoginResponse(String json) {

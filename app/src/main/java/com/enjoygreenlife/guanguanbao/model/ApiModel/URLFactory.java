@@ -14,4 +14,8 @@ public class URLFactory {
     public String getUerInfoURL() {
         return new String(DOMAIN_NAME + "getUserInfo");
     }
+
+    public String scanQRcodeURL() {
+        return new String(DOMAIN_NAME + "scanQRcode");
+    }
 }

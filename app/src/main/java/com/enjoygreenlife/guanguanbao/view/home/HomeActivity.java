@@ -37,7 +37,7 @@ import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener {
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int ZXING_CAMERA_PERMISSION = 1;
-    private final SharedFileHandler _sharedFileHandler = new SharedFileHandler();
+    private SharedFileHandler _sharedFileHandler = new SharedFileHandler();
     private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
     private Class<?> mClss;
     //AMAP
@@ -205,10 +205,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     }
 
     private void checkLoginStatus() {
+        _sharedFileHandler = new SharedFileHandler();
         if (_sharedFileHandler.retreiveUserSession(HomeActivity.this) == null) {
             Toast.makeText(HomeActivity.this, "尚未登入", Toast.LENGTH_LONG).show();
             launchActivity(LoginActivity.class);
         } else {
+            System.out.println("SESSION: " + _sharedFileHandler.retreiveUserSession(HomeActivity.this));
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
         }
     }
@@ -256,8 +258,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 if (userLoginResponse.getCode() == 1) {
 
                     //Store session to SharedPreferences
-                    SharedFileHandler sharedFileHandler = new SharedFileHandler();
-                    sharedFileHandler.saveUserSession(HomeActivity.this, userLoginResponse);
+//                    SharedFileHandler sharedFileHandler = new SharedFileHandler();
+//                    sharedFileHandler.saveUserSession(HomeActivity.this, userLoginResponse.getSession(), userLoginResponse.getUser().getId());
 
                     // Update UI
                     runOnUiThread(new Runnable() {

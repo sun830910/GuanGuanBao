@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGrassGreen"
+    android:orientation="vertical"
+    tools:context="com.enjoygreenlife.guanguanbao.view.scanner.ScannerResultActivity">
+
+    <ImageView
+        android:id="@+id/ic_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="120sp"
+        android:layout_marginTop="90sp"
+        android:contentDescription="@string/title_scanner_success"
+        app:srcCompat="@drawable/ic_checkmark" />
+
+    <TextView
+        android:id="@+id/title_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16sp"
+        android:text="@string/title_scanner_success"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/content_numCount_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:layout_marginTop="30sp"
+        android:text="@string/content_numCount_scanner_success"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/content_weightCount_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:text="@string/content_weightCount_scanner_success"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/content_coalCount_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:text="@string/content_coalCount_scanner_success"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <TextView
+        android:id="@+id/content_point_scanner_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5sp"
+        android:text="@string/content_point_scanner_success"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    <Button
+        android:id="@+id/scanner_ok_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130sp"
+        android:layout_marginRight="130sp"
+        android:layout_marginTop="70sp"
+        android:text="@string/ok" />
+
+</LinearLayout>
