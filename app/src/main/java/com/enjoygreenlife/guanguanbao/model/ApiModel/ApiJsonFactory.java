@@ -1,5 +1,6 @@
 package com.enjoygreenlife.guanguanbao.model.ApiModel;
 
+import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.google.gson.Gson;
 
@@ -31,5 +32,10 @@ public class ApiJsonFactory {
     public UserLoginResponse parseUserLoginResponse(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, UserLoginResponse.class);
+    }
+
+    public ScanQRCodeResponse parseScanQRCodeResponse(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, ScanQRCodeResponse.class);
     }
 }

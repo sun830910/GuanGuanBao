@@ -11,6 +11,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.QRCodeStructure;
+import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
@@ -92,8 +93,11 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
 //        setResult(999, intent);
 //        finish();
 
-        System.out.print("RESULT " + rawResult.getText());
+        System.out.println("RESULT " + rawResult.getText());
         QRCodeStructure qrCodeStructure = new Gson().fromJson(rawResult.getText(), QRCodeStructure.class);
+        String session = _sharedFileHandler.retreiveUserSession(BaseScannerActivity.this);
+        String userID = _sharedFileHandler.retreiveUserID(BaseScannerActivity.this);
+        getScannerResult(session, userID, qrCodeStructure.getQRCode(), qrCodeStructure.getQRcodeImg(), qrCodeStructure.getOrderNo());
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -106,31 +110,27 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
 
     private void getScannerResult(String session, String userID, String QRCode, String QRCodeImg, String orderNumber) {
 
-//        String json = _apiJsonFactory.scanQRcodeJson(String session, String userID, String QRCode, String QRCodeImg, String orderNumber);
-        String json = "";
+        String json = _apiJsonFactory.scanQRcodeJson(session, userID, QRCode, QRCodeImg, orderNumber);
+        System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.postMethod(new URLFactory().scanQRcodeURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
-                final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
+                final ScanQRCodeResponse scanQRCodeResponse = _apiJsonFactory.parseScanQRCodeResponse(result);
                 System.out.println(result);
-                if (userLoginResponse.getCode() == 1) {
+                if (scanQRCodeResponse.getCode() == 1) {
 
-//                    //Store session to SharedPreferences
-//                    SharedFileHandler sharedFileHandler = new SharedFileHandler();
-//                    sharedFileHandler.saveUserSession(BaseScannerActivity.this, userLoginResponse);
-
-                    // Update UI
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            Toast.makeText(BaseScannerActivity.this, "SCANNER SUCCESS", Toast.LENGTH_LONG).show();
-                        }
-                    });
+//                    // Update UI
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//
+//                            Toast.makeText(BaseScannerActivity.this, "SCANNER SUCCESS", Toast.LENGTH_LONG).show();
+//                        }
+//                    });
                 } else {
-                    launchActivity(LoginActivity.class);
+                    mScannerView.resumeCameraPreview(BaseScannerActivity.this);
                 }
             }
         });

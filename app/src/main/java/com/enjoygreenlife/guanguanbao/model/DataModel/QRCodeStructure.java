@@ -7,4 +7,17 @@ package com.enjoygreenlife.guanguanbao.model.DataModel;
 public class QRCodeStructure {
     private String QRcodeImg = "";
     private String QRCode = "";
+    private String orderNo = "";
+
+    public String getOrderNo() {
+        return orderNo;
+    }
+
+    public String getQRcodeImg() {
+        return QRcodeImg;
+    }
+
+    public String getQRCode() {
+        return QRCode;
+    }
 }
