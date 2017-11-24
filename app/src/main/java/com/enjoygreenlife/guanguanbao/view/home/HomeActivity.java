@@ -103,8 +103,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         // check if the request code is same as what is passed  here it is 2
         if (requestCode == 999) {
             if (data.getBooleanExtra("SUCCESS", false)) {
-                String message = data.getStringExtra("MESSAGE");
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+//                String message = data.getStringExtra("MESSAGE");
+//                Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
             } else {
                 System.out.println("CLOSE");
             }

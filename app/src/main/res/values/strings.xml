@@ -28,10 +28,13 @@
     <string name="title_settings">设置</string>
 
     <string name="title_scanner_success">扫码完成</string>
-    <string name="content_numCount_scanner_success">您在本次成功回收10個寶特瓶</string>
-    <string name="content_weightCount_scanner_success">寶特瓶總重量為500g</string>
-    <string name="content_coalCount_scanner_success">減少0.05g碳足跡</string>
-    <string name="content_point_scanner_success">共獲得3積分</string>
+    <string name="content_numCount_scanner_success_prefix">您在本次成功回收</string>
+    <string name="content_numCount_scanner_success_suffix">个宝特瓶</string>
+    <string name="content_weightCount_scanner_success_prefix">宝特瓶总重量为</string>
+    <string name="content_coalCount_scanner_success_prefix">减少</string>
+    <string name="content_coalCount_scanner_success_suffix">碳足迹</string>
+    <string name="content_point_scanner_success_prefix">共获得</string>
+    <string name="content_point_scanner_success_suffix">积分</string>
 
     <string name="unit_co2_gram">公克</string>
     <string name="title_total_co2">减少碳足迹</string>
