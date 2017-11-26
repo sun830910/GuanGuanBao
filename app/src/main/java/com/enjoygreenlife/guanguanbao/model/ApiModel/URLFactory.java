@@ -18,4 +18,8 @@ public class URLFactory {
     public String scanQRcodeURL() {
         return new String(DOMAIN_NAME + "scanQRcode");
     }
+
+    public String getStationURL() {
+        return new String(DOMAIN_NAME + "getStation");
+    }
 }

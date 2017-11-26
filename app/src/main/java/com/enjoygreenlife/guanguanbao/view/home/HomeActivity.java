@@ -34,6 +34,8 @@ import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
+import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachine;
+import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
@@ -268,11 +270,15 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     @Override
     public void onMyLocationChange(Location location) {
+
+        //Get User Address by Location from AMAP
         latLonPoint = new LatLonPoint(location.getLatitude(), location.getLongitude());
         // 第一个参数表示一个Latlng，第二参数表示范围多少米，第三个参数表示是火系坐标系还是GPS原生坐标系
         RegeocodeQuery query = new RegeocodeQuery(latLonPoint, 200, GeocodeSearch.AMAP);
         // 设置异步逆地理编码请求
         geocoderSearch.getFromLocationAsyn(query);
+
+        getStation(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this), location);
         /*
         // 定位回调监听
         if (location != null) {
@@ -388,36 +394,21 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     private void getStation(String session, String userID, Location location) {
 
-        /*String json = _apiJsonFactory.getUserInfoJson(session, userID);
+        String json = _apiJsonFactory.getStationJson(session, userID, location);
 
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.postMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
-                final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
+                final RecycleMachineResponse recycleMachineResponse = _apiJsonFactory.parseRecycleMachineResponse(result);
                 System.out.println(result);
-                if (userLoginResponse.getCode() == 1) {
-
-                    // Update UI
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-//                            _progress.setVisibility(View.INVISIBLE);
-                            _userNameText.setText(userLoginResponse.getUser().getUserName());
-                            _userPhoneText.setText(userLoginResponse.getUser().getPhoneNumber());
-                            _totalCO2Text.setText(String.format("%.1f", userLoginResponse.getUser().getTotalCoals()));
-                            _totalBottlesText.setText(String.valueOf(userLoginResponse.getUser().getTotalNums()));
-                            _totalRewards.setText(String.format("%.0f", userLoginResponse.getUser().getWallet()));
-                            _totalPointsText.setText(String.format("%.0f", userLoginResponse.getUser().getSumPoint()));
-
-                            Toast.makeText(HomeActivity.this, "已抓到登入", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    launchActivity(LoginActivity.class);
+                if (recycleMachineResponse.getCode() == 1) {
+                    for (RecycleMachine machine : recycleMachineResponse.getData()) {
+                        System.out.println(machine.getId() + "--" + machine.getName() + "--" + machine.getAddress());
+                    }
                 }
             }
-        });*/
+        });
     }
 }
