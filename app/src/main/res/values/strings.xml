@@ -32,7 +32,7 @@
     <string name="content_numCount_scanner_success_suffix">个宝特瓶</string>
     <string name="content_weightCount_scanner_success_prefix">宝特瓶总重量为</string>
     <string name="content_coalCount_scanner_success_prefix">减少</string>
-    <string name="content_coalCount_scanner_success_suffix">碳足迹</string>
+    <string name="content_coalCount_scanner_success_suffix">g碳足迹</string>
     <string name="content_point_scanner_success_prefix">共获得</string>
     <string name="content_point_scanner_success_suffix">积分</string>
 
@@ -54,5 +54,6 @@
     <string name="home_info_msg_02">· 本月您的环保奖章已升级成为金牌</string>
 
     <string name="user_file_key">user_data_file_test</string>
+    <string name="no_geo_result">查無結果</string>
 
 </resources>

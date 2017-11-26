@@ -52,10 +52,15 @@ public class ScannerResultActivity extends AppCompatActivity {
         _result.setTotalCoals(getIntent().getStringExtra("WEIGHT_OF_COALS"));
         _result.setTotalPoint(getIntent().getStringExtra("POINTS"));
 
-        _numCountTextView.setText(getText(R.string.content_numCount_scanner_success_prefix) + _result.getTotalNums() + getText(R.string.content_numCount_scanner_success_suffix));
-        _weightCountTextView.setText(getText(R.string.content_weightCount_scanner_success_prefix) + _result.getTotalWeight() + "g");
-        _coalCountTextView.setText(getText(R.string.content_coalCount_scanner_success_prefix) + _result.getTotalCoals() + getText(R.string.content_coalCount_scanner_success_suffix));
-        _pointsCountTextView.setText(getText(R.string.content_point_scanner_success_prefix) + _result.getTotalPoint() + getText(R.string.content_point_scanner_success_suffix));
+        String resultStrNumber = getText(R.string.content_numCount_scanner_success_prefix) + _result.getTotalNums() + getText(R.string.content_numCount_scanner_success_suffix);
+        String resultStrWeightCount = getText(R.string.content_weightCount_scanner_success_prefix) + _result.getTotalWeight() + "g";
+        String resultStrCoalCount = getText(R.string.content_coalCount_scanner_success_prefix) + _result.getTotalCoals() + getText(R.string.content_coalCount_scanner_success_suffix);
+        String resultStrPointCount = getText(R.string.content_point_scanner_success_prefix) + _result.getTotalPoint() + getText(R.string.content_point_scanner_success_suffix);
+
+        _numCountTextView.setText(resultStrNumber);
+        _weightCountTextView.setText(resultStrWeightCount);
+        _coalCountTextView.setText(resultStrCoalCount);
+        _pointsCountTextView.setText(resultStrPointCount);
     }
 
     @Override

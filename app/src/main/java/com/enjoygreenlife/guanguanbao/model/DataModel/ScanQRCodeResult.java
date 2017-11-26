@@ -29,19 +29,23 @@ public class ScanQRCodeResult {
     }
 
     public String getTotalPoint() {
-        return totalPoint;
+        int result = Integer.parseInt(totalPoint);
+        return String.valueOf(result);
     }
 
     public String getTotalNums() {
-        return totalNums;
+        int result = Integer.parseInt(totalNums);
+        return String.valueOf(result);
     }
 
     public String getTotalWeight() {
-        return totalWeight;
+        double result = Double.parseDouble(totalWeight);
+        return String.format("%.2f", totalWeight);
     }
 
     public String getTotalCoals() {
-        return totalCoals;
+        double result = Double.parseDouble(totalCoals);
+        return String.format("%.2f", totalCoals);
     }
 
     public String getUserId() {
