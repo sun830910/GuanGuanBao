@@ -25,12 +25,12 @@ public class RecycleMachine {
         return recycleStationType;
     }
 
-    public String getLongitude() {
-        return longitude;
+    public double getLongitude() {
+        return Double.parseDouble(longitude);
     }
 
-    public String getLatitude() {
-        return latitude;
+    public double getLatitude() {
+        return Double.parseDouble(latitude);
     }
 
     public String getAddress() {

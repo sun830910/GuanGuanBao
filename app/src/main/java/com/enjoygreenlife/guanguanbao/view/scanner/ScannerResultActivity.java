@@ -17,10 +17,12 @@ public class ScannerResultActivity extends AppCompatActivity {
     private TextView _coalCountTextView;
     private TextView _pointsCountTextView;
     private Button _okButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scanner_result);
+
         processView();
         processController();
         processData();
@@ -30,10 +32,7 @@ public class ScannerResultActivity extends AppCompatActivity {
         _okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.putExtra("SUCCESS", true);
-                setResult(1001, intent);
-                finish();
+                closeActivity();
             }
         });
     }
@@ -65,6 +64,13 @@ public class ScannerResultActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        closeActivity();
+    }
+
+    private void closeActivity() {
+        Intent intent = new Intent();
+        intent.putExtra("SUCCESS", true);
+        setResult(1001, intent);
         finish();
     }
 }

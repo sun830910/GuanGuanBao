@@ -62,7 +62,9 @@
         <activity
             android:name=".view.login.LoginActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.scanner.ScannerResultActivity"></activity>
+        <activity
+            android:name=".view.scanner.ScannerResultActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

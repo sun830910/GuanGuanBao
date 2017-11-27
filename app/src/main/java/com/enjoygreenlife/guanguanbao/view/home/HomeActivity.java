@@ -19,7 +19,7 @@ import android.widget.Toast;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.CameraUpdateFactory;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
+import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.Marker;
 import com.amap.api.maps.model.MarkerOptions;
 import com.amap.api.maps.model.MyLocationStyle;
@@ -44,6 +44,8 @@ import com.enjoygreenlife.guanguanbao.view.login.LoginActivity;
 import com.enjoygreenlife.guanguanbao.view.scanner.BaseScannerActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
 
+import java.util.ArrayList;
+
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener,
         OnGeocodeSearchListener {
@@ -60,6 +62,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private Marker geoMarker;
     private Marker regeoMarker;
     private GeocodeSearch geocoderSearch;
+    private ArrayList<Marker> _markerList = new ArrayList<Marker>();
     //Custom Layouts
     private LinearLayout _homeView;
     private BottomNavigationView _navigation;
@@ -124,11 +127,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
         if (requestCode == 999) {
-            if (data.getBooleanExtra("SUCCESS", false)) {
-                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
-            } else {
-                System.out.println("CLOSE");
-            }
+            getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+//            if (data.getBooleanExtra("SUCCESS", false)) {
+//                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+//            } else {
+//                System.out.println("CLOSE");
+//            }
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == 998) {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
@@ -236,10 +240,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private void mapInit() {
         if (_aMap == null) {
             _aMap = _mapView.getMap();
-            regeoMarker = _aMap.addMarker(new MarkerOptions().anchor(0.5f, 0.5f)
-                    .icon(BitmapDescriptorFactory
-                            .defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-//            _aMap.setOnMarkerClickListener(this);
             setUpMap();
         }
 
@@ -313,7 +313,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                     final String cityName = result.getRegeocodeAddress().getCity();
                     _aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             AMapUtil.convertToLatLng(latLonPoint), 15));
-                    regeoMarker.setPosition(AMapUtil.convertToLatLng(latLonPoint));
                     System.out.println("+++++++" + addressName);
 
                     runOnUiThread(new Runnable() {
@@ -355,9 +354,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      * Call it for Getting User Data
      */
     private void getUserData(String session, String userID) {
-
         String json = _apiJsonFactory.getUserInfoJson(session, userID);
-
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
@@ -376,10 +373,10 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                             _userPhoneText.setText(userLoginResponse.getUser().getPhoneNumber());
                             _totalCO2Text.setText(String.format("%.1f", userLoginResponse.getUser().getTotalCoals()));
                             _totalBottlesText.setText(String.valueOf(userLoginResponse.getUser().getTotalNums()));
-                            _totalRewards.setText(String.format("%.0f", userLoginResponse.getUser().getWallet()));
-                            _totalPointsText.setText(String.format("%.0f", userLoginResponse.getUser().getSumPoint()));
+                            _totalRewards.setText(String.format("%.0f", userLoginResponse.getUser().getSumPoint()));
+                            _totalPointsText.setText(String.format("%.0f", userLoginResponse.getUser().getWallet()));
 
-                            Toast.makeText(HomeActivity.this, "已抓到登入", Toast.LENGTH_LONG).show();
+                            Toast.makeText(HomeActivity.this, "資料已更新", Toast.LENGTH_LONG).show();
                         }
                     });
                 } else {
@@ -393,9 +390,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      * Call it for Getting Stations Around
      */
     private void getStation(String session, String userID, Location location) {
-
+        cleanMarkerOnMap();
         String json = _apiJsonFactory.getStationJson(session, userID, location);
-
+        System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.postMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
@@ -405,10 +402,20 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 System.out.println(result);
                 if (recycleMachineResponse.getCode() == 1) {
                     for (RecycleMachine machine : recycleMachineResponse.getData()) {
+                        LatLng latLng = new LatLng(machine.getLatitude(), machine.getLongitude());
+                        final Marker marker = _aMap.addMarker(new MarkerOptions().position(latLng).title(machine.getName()).snippet(machine.getAddress()));
                         System.out.println(machine.getId() + "--" + machine.getName() + "--" + machine.getAddress());
+                        _markerList.add(marker);
                     }
                 }
             }
         });
+    }
+
+    private void cleanMarkerOnMap() {
+        for (Marker marker : _markerList) {
+            marker.destroy();
+        }
+        _markerList.clear();
     }
 }

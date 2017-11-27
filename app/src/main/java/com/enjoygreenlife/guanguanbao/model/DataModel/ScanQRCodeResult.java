@@ -29,8 +29,8 @@ public class ScanQRCodeResult {
     }
 
     public String getTotalPoint() {
-        int result = Integer.parseInt(totalPoint);
-        return String.valueOf(result);
+        double result = Double.parseDouble(totalPoint);
+        return String.format("%.2f", result);
     }
 
     public String getTotalNums() {
@@ -40,12 +40,12 @@ public class ScanQRCodeResult {
 
     public String getTotalWeight() {
         double result = Double.parseDouble(totalWeight);
-        return String.format("%.2f", totalWeight);
+        return String.format("%.2f", result);
     }
 
     public String getTotalCoals() {
         double result = Double.parseDouble(totalCoals);
-        return String.format("%.2f", totalCoals);
+        return String.format("%.2f", result);
     }
 
     public String getUserId() {

@@ -35,10 +35,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Intent intent = new Intent();
-            intent.putExtra("SUCCESS", false);
-            setResult(999, intent);
-            finish();
+            closeActivity(false);
         }
         return super.onKeyDown(keyCode, event);
     }
@@ -57,13 +54,14 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     }
 
     public void launchActivity(Class<?> className) {
+        System.out.println("LAUNCH SCAN RESULT");
         mClss = className;
-        Intent intent = new Intent(this, className);
-        intent.putExtra("NUMBER_OF_BOTTLES", _scanQRCodeResult.getTotalNums());
-        intent.putExtra("WEIGHT_OF_BOTTLES", _scanQRCodeResult.getTotalWeight());
-        intent.putExtra("WEIGHT_OF_COALS", _scanQRCodeResult.getTotalCoals());
-        intent.putExtra("POINTS", _scanQRCodeResult.getTotalPoint());
         if (mClss.equals(ScannerResultActivity.class)) {
+            Intent intent = new Intent(BaseScannerActivity.this, className);
+            intent.putExtra("NUMBER_OF_BOTTLES", _scanQRCodeResult.getTotalNums());
+            intent.putExtra("WEIGHT_OF_BOTTLES", _scanQRCodeResult.getTotalWeight());
+            intent.putExtra("WEIGHT_OF_COALS", _scanQRCodeResult.getTotalCoals());
+            intent.putExtra("POINTS", _scanQRCodeResult.getTotalPoint());
             startActivityForResult(intent, 1001);
         }
     }
@@ -73,25 +71,13 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001) {
-            Intent intent = new Intent();
-            intent.putExtra("SUCCESS", true);
-//        intent.putExtra("MESSAGE", "Contents = " + rawResult.getText() +
-//                ", Format = " + rawResult.getBarcodeFormat().toString());
-            setResult(999, intent);
-            finish();
+            closeActivity(true);
         }
     }
 
     @Override
     public void handleResult(Result rawResult) {
-//        Intent intent = new Intent();
-//        intent.putExtra("SUCCESS", true);
-//        intent.putExtra("MESSAGE", "Contents = " + rawResult.getText() +
-//                ", Format = " + rawResult.getBarcodeFormat().toString());
-//        setResult(999, intent);
-//        finish();
-
-        System.out.println("RESULT " + rawResult.getText());
+//        System.out.println("RESULT " + rawResult.getText());
         QRCodeStructure qrCodeStructure = new Gson().fromJson(rawResult.getText(), QRCodeStructure.class);
         String session = _sharedFileHandler.retreiveUserSession(BaseScannerActivity.this);
         String userID = _sharedFileHandler.retreiveUserID(BaseScannerActivity.this);
@@ -116,22 +102,28 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
             @Override
             public void onSuccess(String result) {
                 final ScanQRCodeResponse scanQRCodeResponse = _apiJsonFactory.parseScanQRCodeResponse(result);
-                System.out.println(result);
+//                System.out.println("SCANNER++++++++" + result);
                 if (scanQRCodeResponse.getCode() == 1) {
                     _scanQRCodeResult = scanQRCodeResponse.getData();
                     launchActivity(ScannerResultActivity.class);
-//                    // Update UI
-//                    runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//
-//                            Toast.makeText(BaseScannerActivity.this, "SCANNER SUCCESS", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
+                } else if (scanQRCodeResponse.getCode() == -5) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mScannerView.resumeCameraPreview(BaseScannerActivity.this);
+                        }
+                    });
                 } else {
-                    mScannerView.resumeCameraPreview(BaseScannerActivity.this);
+                    closeActivity(false);
                 }
             }
         });
+    }
+
+    private void closeActivity(boolean resultCheck) {
+        Intent intent = new Intent();
+        intent.putExtra("SUCCESS", resultCheck);
+        setResult(999, intent);
+        finish();
     }
 }
