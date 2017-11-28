@@ -135,9 +135,11 @@
                         android:id="@+id/total_co2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
                         android:layout_weight="1"
                         android:text="220"
+                        android:textAlignment="center"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
                         android:textSize="64sp"
                         android:textStyle="bold" />
@@ -158,14 +160,6 @@
                         android:layout_alignBottom="@+id/total_co2"
                         android:layout_toRightOf="@+id/total_co2"
                         android:text="@string/unit_co2_gram" />
-
-                    <ImageView
-                        android:id="@+id/image_medal"
-                        android:layout_width="40sp"
-                        android:layout_height="40sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_toRightOf="@+id/total_co2"
-                        app:srcCompat="@drawable/img_bronze_medal" />
 
                 </RelativeLayout>
             </LinearLayout>
@@ -279,8 +273,8 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10sp"
-                android:layout_marginTop="10sp"
+                android:layout_marginBottom="5sp"
+                android:layout_marginTop="5sp"
                 android:background="@android:color/background_light"
                 android:paddingLeft="20sp"
                 android:paddingRight="20sp">
@@ -292,26 +286,30 @@
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="7dp"
+                    android:layout_marginTop="10sp"
                     android:contentDescription="Information"
                     app:srcCompat="@drawable/img_info" />
 
-                <TextView
-                    android:id="@+id/home_title_msg_02"
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@id/image_info"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@id/image_info"
-                    android:text="@string/home_info_msg_02" />
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10sp"
+                    android:layout_toRightOf="@id/image_info">
 
-                <TextView
-                    android:id="@+id/home_title_msg_01"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@id/image_info"
-                    android:layout_toRightOf="@id/image_info"
-                    android:text="@string/home_info_msg_01" />
+                    <TextView
+                        android:id="@+id/home_title_msg_01"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/home_info_msg_01" />
+
+                    <TextView
+                        android:id="@+id/home_title_msg_02"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20sp"
+                        android:text="@string/home_info_msg_02" />
+                </RelativeLayout>
 
             </RelativeLayout>
 

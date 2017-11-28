@@ -310,7 +310,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 if (result != null && result.getRegeocodeAddress() != null
                         && result.getRegeocodeAddress().getFormatAddress() != null) {
                     String addressName = result.getRegeocodeAddress().getFormatAddress() + "附近";
-                    final String cityName = result.getRegeocodeAddress().getCity();
+                    final String cityName = result.getRegeocodeAddress().getCity().substring(0,2);
                     _aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             AMapUtil.convertToLatLng(latLonPoint), 15));
                     System.out.println("+++++++" + addressName);
