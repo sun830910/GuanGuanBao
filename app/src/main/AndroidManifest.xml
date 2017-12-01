@@ -65,6 +65,18 @@
         <activity
             android:name=".view.scanner.ScannerResultActivity"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".view.settings.opinion.OpinionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.settings.opinion.OpinionLastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.settings.aboutApp.AboutAppActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.settings.generalSetting.GeneralSettingActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

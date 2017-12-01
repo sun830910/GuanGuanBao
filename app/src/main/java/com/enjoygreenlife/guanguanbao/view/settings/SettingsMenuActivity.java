@@ -9,8 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.enjoygreenlife.guanguanbao.R;
-import com.enjoygreenlife.guanguanbao.model.SettingItem;
-import com.enjoygreenlife.guanguanbao.model.SettingListAdapter;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
 import com.enjoygreenlife.guanguanbao.view.settings.aboutApp.AboutAppActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.generalSetting.GeneralSettingActivity;
 import com.enjoygreenlife.guanguanbao.view.settings.opinion.OpinionActivity;
