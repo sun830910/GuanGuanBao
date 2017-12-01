@@ -1,16 +1,20 @@
 package com.enjoygreenlife.guanguanbao.view.settings;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
-import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
-import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
+import com.enjoygreenlife.guanguanbao.model.SettingItem;
+import com.enjoygreenlife.guanguanbao.model.SettingListAdapter;
+import com.enjoygreenlife.guanguanbao.view.settings.aboutApp.AboutAppActivity;
+import com.enjoygreenlife.guanguanbao.view.settings.generalSetting.GeneralSettingActivity;
+import com.enjoygreenlife.guanguanbao.view.settings.opinion.OpinionActivity;
+import com.enjoygreenlife.guanguanbao.view.settings.opinion.OpinionLastActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +25,33 @@ public class SettingsMenuActivity extends AppCompatActivity {
     private ListView _settingListView;
     private SettingListAdapter _settingListAdapter;
 
+
+    /*** 根据Item的position位置来判断具体跳转至哪个Activity */
+    /*** 根据Item的position位置来判断具体跳转至哪个Activity */
+    private void toNewActivity(int position){
+        Intent i;
+        switch (position){
+            case 0:
+                i = new Intent(SettingsMenuActivity.this,OpinionLastActivity.class);
+                break;
+            case 1:
+                i = new Intent(SettingsMenuActivity.this,GeneralSettingActivity.class);
+                break;
+            case 2:
+                i = new Intent(SettingsMenuActivity.this,OpinionActivity.class);
+                break;
+            case 3:
+                i = new Intent(SettingsMenuActivity.this,AboutAppActivity.class);
+                break;
+
+            default:
+                i = new Intent(SettingsMenuActivity.this,SettingsMenuActivity.class);
+                break;
+        }
+        startActivity(i);
+    }
+
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +69,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                Toast.makeText(SettingsMenuActivity.this,
-                        _settingItemList.get(position).GetTitle(), Toast.LENGTH_LONG).show();
+                toNewActivity(position);
             }
         };
 
