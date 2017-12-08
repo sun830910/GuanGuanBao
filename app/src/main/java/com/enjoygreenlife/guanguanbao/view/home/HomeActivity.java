@@ -12,6 +12,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,10 +31,17 @@ import com.amap.api.services.geocoder.GeocodeSearch;
 import com.amap.api.services.geocoder.GeocodeSearch.OnGeocodeSearchListener;
 import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
+import com.amap.api.services.weather.LocalWeatherForecastResult;
+import com.amap.api.services.weather.LocalWeatherLive;
+import com.amap.api.services.weather.LocalWeatherLiveResult;
+import com.amap.api.services.weather.WeatherSearch;
+import com.amap.api.services.weather.WeatherSearch.OnWeatherSearchListener;
+import com.amap.api.services.weather.WeatherSearchQuery;
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.WeatherResultConverter;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachine;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
@@ -48,7 +56,7 @@ import java.util.ArrayList;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener,
-        OnGeocodeSearchListener {
+        OnGeocodeSearchListener, OnWeatherSearchListener {
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     private static final int ZXING_CAMERA_PERMISSION = 1;
     private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
@@ -63,6 +71,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private Marker regeoMarker;
     private GeocodeSearch geocoderSearch;
     private ArrayList<Marker> _markerList = new ArrayList<Marker>();
+    private WeatherSearchQuery mquery;
+    private WeatherSearch mweathersearch;
+    private LocalWeatherLive weatherlive;
+    private String cityName = "北京市";
+    private String cityAdCode = "212000";
     //Custom Layouts
     private LinearLayout _homeView;
     private BottomNavigationView _navigation;
@@ -73,6 +86,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private TextView _totalPointsText;
     private TextView _totalRewards;
     private TextView _locationTextView;
+    private TextView _tempreatureTextView;
+    private ImageView _weatherInfoImage;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -233,7 +248,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _totalPointsText = (TextView) findViewById(R.id.total_points);
         _totalRewards = (TextView) findViewById(R.id.total_rewards);
         _locationTextView = (TextView) findViewById(R.id.locationTextView);
+        _tempreatureTextView = (TextView) findViewById(R.id.info_temperatureText);
 
+        _weatherInfoImage = (ImageView) findViewById(R.id.icon_weather);
         mapInit();
     }
 
@@ -310,29 +327,71 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 if (result != null && result.getRegeocodeAddress() != null
                         && result.getRegeocodeAddress().getFormatAddress() != null) {
                     String addressName = result.getRegeocodeAddress().getFormatAddress() + "附近";
-                    final String cityName = result.getRegeocodeAddress().getCity().substring(0,2);
+                    cityName = result.getRegeocodeAddress().getCity().substring(0, 2);
+                    cityAdCode = result.getRegeocodeAddress().getAdCode();
                     _aMap.animateCamera(CameraUpdateFactory.newLatLngZoom(
                             AMapUtil.convertToLatLng(latLonPoint), 15));
-                    System.out.println("+++++++" + addressName);
+                    System.out.println("LOCATION+++++++" + addressName);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             _locationTextView.setText(cityName);
+                            searchliveweather();
                         }
                     });
 
                 } else {
-                    System.out.println("+++++++" + R.string.no_geo_result);
+                    System.out.println("LOCATION-----" + R.string.no_geo_result);
                 }
             } else {
-                System.out.println("+++++++" + rCode);
+                System.out.println("LOCATION-----" + rCode);
             }
         }
     }
 
     @Override
     public void onGeocodeSearched(GeocodeResult geocodeResult, int i) {
+
+    }
+
+    /**
+     * 实时天气查询
+     */
+    private void searchliveweather() {
+        mquery = new WeatherSearchQuery(cityAdCode, WeatherSearchQuery.WEATHER_TYPE_LIVE);//检索参数为城市和天气类型，实时天气为1、天气预报为2
+        mweathersearch = new WeatherSearch(this);
+        mweathersearch.setOnWeatherSearchListener(this);
+        mweathersearch.setQuery(mquery);
+        mweathersearch.searchWeatherAsyn(); //异步搜索
+    }
+
+    /**
+     * 实时天气查询回调
+     */
+    @Override
+    public void onWeatherLiveSearched(LocalWeatherLiveResult weatherLiveResult, int rCode) {
+        if (rCode == AMapException.CODE_AMAP_SUCCESS) {
+            if (weatherLiveResult != null && weatherLiveResult.getLiveResult() != null) {
+                weatherlive = weatherLiveResult.getLiveResult();
+                String temperature = weatherlive.getTemperature() + "°C";
+                _tempreatureTextView.setText(temperature);
+                WeatherResultConverter converter = new WeatherResultConverter();
+                converter.SetWeatherIcon(_weatherInfoImage, weatherlive.getWeather());
+                System.out.println("WEATHER++++" + weatherlive.getWeather() + "+++" + weatherlive.getTemperature() + "°C");
+            } else {
+                System.out.println("WEATHER--ERR--" + R.string.no_geo_result);
+            }
+        } else {
+            System.out.println("WEATHER--ERR--" + rCode);
+        }
+    }
+
+    /**
+     * 天气预报查询结果回调
+     */
+    @Override
+    public void onWeatherForecastSearched(LocalWeatherForecastResult weatherForecastResult, int rCode) {
 
     }
 
