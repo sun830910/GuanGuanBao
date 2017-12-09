@@ -9,7 +9,7 @@ import com.enjoygreenlife.guanguanbao.R;
  */
 
 public class WeatherResultConverter {
-    public WeatherStatus convertWeatherToCode(String weather) {
+    private WeatherStatus convertWeatherToCode(String weather) {
         if (weather.equals("晴")) {
             return WeatherStatus.SUNNY;
         } else if (weather.equals("多云")) {
@@ -55,10 +55,9 @@ public class WeatherResultConverter {
         } else {
             imgView.setImageResource(R.drawable.ic_weather_sun);
         }
-
     }
 
-    public enum WeatherStatus {
+    enum WeatherStatus {
         SUNNY, RAIN, PARTLY_CLOUDLY, CLOUDY, SNOW, THUNDERSTORM, FOGGY, DUSTY, TORNATO
     }
 }

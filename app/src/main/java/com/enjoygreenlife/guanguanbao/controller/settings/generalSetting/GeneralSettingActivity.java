@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.settings.generalSetting;
+package com.enjoygreenlife.guanguanbao.controller.settings.generalSetting;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

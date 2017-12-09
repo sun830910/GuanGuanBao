@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.scanner;
+package com.enjoygreenlife.guanguanbao.controller.scanner;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.QRCodeStructure;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionToolCallback;
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 

@@ -44,7 +44,7 @@
             android:value="96614f3af21df3520674370289f0e649" />
 
         <activity
-            android:name=".view.home.HomeActivity"
+            android:name=".controller.home.HomeActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -53,29 +53,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.scanner.BaseScannerActivity"
+            android:name=".controller.scanner.BaseScannerActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".view.settings.SettingsMenuActivity"
+            android:name=".controller.settings.SettingsMenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.login.LoginActivity"
+            android:name=".controller.login.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.scanner.ScannerResultActivity"
+            android:name=".controller.scanner.ScannerResultActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".view.settings.opinion.OpinionActivity"
+            android:name=".controller.settings.opinion.OpinionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.settings.opinion.OpinionLastActivity"
+            android:name=".controller.settings.opinion.OpinionLastActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.settings.aboutApp.AboutAppActivity"
+            android:name=".controller.settings.aboutApp.AboutAppActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.settings.generalSetting.GeneralSettingActivity"
+            android:name=".controller.settings.generalSetting.GeneralSettingActivity"
             android:screenOrientation="portrait"></activity>
     </application>
 

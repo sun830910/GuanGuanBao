@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.home;
+package com.enjoygreenlife.guanguanbao.controller.home;
 
 import android.Manifest;
 import android.content.Intent;
@@ -45,12 +45,12 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.WeatherResultConverter;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachine;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionToolCallback;
 import com.enjoygreenlife.guanguanbao.tool.amap.AMapUtil;
-import com.enjoygreenlife.guanguanbao.view.login.LoginActivity;
-import com.enjoygreenlife.guanguanbao.view.scanner.BaseScannerActivity;
-import com.enjoygreenlife.guanguanbao.view.settings.SettingsMenuActivity;
+import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
+import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
+import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
 
 import java.util.ArrayList;
 

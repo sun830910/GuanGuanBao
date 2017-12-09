@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.settings.opinion;
+package com.enjoygreenlife.guanguanbao.controller.settings.opinion;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -7,11 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
-import com.amap.api.mapcore.util.v;
 import com.enjoygreenlife.guanguanbao.R;
 
 public class OpinionActivity extends AppCompatActivity {

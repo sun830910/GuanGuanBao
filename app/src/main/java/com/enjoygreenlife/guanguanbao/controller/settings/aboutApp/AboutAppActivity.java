@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.settings.aboutApp;
+package com.enjoygreenlife.guanguanbao.controller.settings.aboutApp;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;

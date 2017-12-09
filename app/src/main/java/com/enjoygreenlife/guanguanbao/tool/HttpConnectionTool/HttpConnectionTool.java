@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.tool;
+package com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -33,6 +33,14 @@ public class HttpConnectionTool {
     private final OkHttpClient _client;
     private Request _request;
     private boolean userStop = false;
+
+    public HttpConnectionTool() {
+        _client = new OkHttpClient.Builder()
+                .connectTimeout(DEF_TIMEOUT_SOCKET, TimeUnit.SECONDS)
+                .writeTimeout(DEF_TIMEOUT_SOCKET, TimeUnit.SECONDS)
+                .readTimeout(DEF_TIMEOUT_SOCKET * 3, TimeUnit.SECONDS)
+                .build();
+    }
 
     /**
      * detect network is available or no
@@ -70,16 +78,6 @@ public class HttpConnectionTool {
         else return false;
     }
 
-
-    public HttpConnectionTool() {
-        _client = new OkHttpClient.Builder()
-                .connectTimeout(DEF_TIMEOUT_SOCKET, TimeUnit.SECONDS)
-                .writeTimeout(DEF_TIMEOUT_SOCKET, TimeUnit.SECONDS)
-                .readTimeout(DEF_TIMEOUT_SOCKET * 3, TimeUnit.SECONDS)
-                .build();
-    }
-
-
     public void cancel() {
 
     }
@@ -101,9 +99,11 @@ public class HttpConnectionTool {
                         e.printStackTrace();
                     }
 
-                    @Override public void onResponse(Call call, Response response) throws IOException {
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
                         try (ResponseBody responseBody = response.body()) {
-                            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                            if (!response.isSuccessful())
+                                throw new IOException("Unexpected code " + response);
 
                             Headers responseHeaders = response.headers();
                             for (int i = 0, size = responseHeaders.size(); i < size; i++) {

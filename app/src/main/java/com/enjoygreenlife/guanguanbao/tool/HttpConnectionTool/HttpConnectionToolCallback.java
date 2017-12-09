@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.tool;
+package com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
 
 /**
  * Created by luthertsai on 2017/11/18.

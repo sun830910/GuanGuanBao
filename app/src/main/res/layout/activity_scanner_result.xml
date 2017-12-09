@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorLightGrassGreen"
     android:orientation="vertical"
-    tools:context="com.enjoygreenlife.guanguanbao.view.scanner.ScannerResultActivity">
+    tools:context="com.enjoygreenlife.guanguanbao.controller.scanner.ScannerResultActivity">
 
     <ImageView
         android:id="@+id/ic_scanner_success"

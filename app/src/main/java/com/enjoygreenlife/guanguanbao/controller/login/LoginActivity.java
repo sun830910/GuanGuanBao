@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.view.login;
+package com.enjoygreenlife.guanguanbao.controller.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,8 +14,8 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionToolCallback;
 
 public class LoginActivity extends AppCompatActivity {
 
