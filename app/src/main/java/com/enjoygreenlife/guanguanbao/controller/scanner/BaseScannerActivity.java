@@ -11,8 +11,8 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.QRCodeStructure;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionTool;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 

@@ -14,8 +14,8 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionTool;
-import com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool.HttpConnectionToolCallback;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
 public class LoginActivity extends AppCompatActivity {
 

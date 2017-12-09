@@ -1,4 +1,4 @@
-package com.enjoygreenlife.guanguanbao.tool.HttpConnectionTool;
+package com.enjoygreenlife.guanguanbao.tool.httpConnectionTool;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

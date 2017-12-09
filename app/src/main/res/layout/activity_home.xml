@@ -149,10 +149,10 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
                         android:layout_centerHorizontal="true"
-                        android:layout_weight="1"
                         android:text="220"
                         android:textAlignment="center"
                         android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+                        android:textColor="@color/black"
                         android:textSize="64sp"
                         android:textStyle="bold" />
 
@@ -160,25 +160,19 @@
                         android:id="@+id/title_total_co2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_below="@+id/total_co2"
                         android:text="@string/title_total_co2"
                         android:textAlignment="center"
-                        android:textSize="10sp" />
-
-                    <TextView
-                        android:id="@+id/unit_co2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/total_co2"
-                        android:layout_toRightOf="@+id/total_co2"
-                        android:text="@string/unit_co2_gram" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <ImageView
                         android:id="@+id/imageView3"
-                        android:layout_width="35sp"
-                        android:layout_height="35sp"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/total_co2"
+                        android:layout_width="50sp"
+                        android:layout_height="50sp"
+                        android:layout_marginTop="20sp"
+                        android:layout_toEndOf="@+id/total_co2"
                         app:srcCompat="@drawable/img_gold_medal" />
 
                 </RelativeLayout>
@@ -216,7 +210,9 @@
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@id/total_bottles"
                         android:layout_toRightOf="@id/total_bottles"
-                        android:text="@string/unit_bottle" />
+                        android:text="@string/unit_bottle"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/title_total_bottles"
@@ -225,7 +221,8 @@
                         android:layout_below="@+id/total_bottles"
                         android:text="@string/title_total_bottles"
                         android:textAlignment="center"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -245,7 +242,8 @@
                         android:layout_below="@+id/total_points"
                         android:text="@string/title_total_points"
                         android:textAlignment="center"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/total_points"
@@ -255,7 +253,18 @@
                         android:layout_weight="1"
                         android:text="160"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/black"
                         android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/unit_bottles2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/total_points"
+                        android:layout_toRightOf="@id/total_points"
+                        android:text="@string/unit_point"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -276,6 +285,7 @@
                         android:layout_weight="1"
                         android:text="23.22"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textColor="@color/black"
                         android:textSize="30sp" />
 
                     <TextView
@@ -285,7 +295,18 @@
                         android:layout_below="@+id/total_rewards"
                         android:text="@string/title_total_rewards"
                         android:textAlignment="center"
-                        android:textSize="12sp" />
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/unit_bottles3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/total_rewards"
+                        android:layout_toRightOf="@id/total_rewards"
+                        android:text="@string/unit_money"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -321,14 +342,16 @@
                         android:id="@+id/home_title_msg_01"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/home_info_msg_01" />
+                        android:text="@string/home_info_msg_01"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:id="@+id/home_title_msg_02"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20sp"
-                        android:text="@string/home_info_msg_02" />
+                        android:text="@string/home_info_msg_02"
+                        android:textColor="@color/black" />
                 </RelativeLayout>
 
             </RelativeLayout>
