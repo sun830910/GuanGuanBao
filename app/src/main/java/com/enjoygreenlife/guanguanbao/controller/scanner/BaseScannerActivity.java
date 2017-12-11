@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
@@ -110,6 +111,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            Toast.makeText(BaseScannerActivity.this, "二維碼已失效", Toast.LENGTH_LONG).show();
                             mScannerView.resumeCameraPreview(BaseScannerActivity.this);
                         }
                     });
