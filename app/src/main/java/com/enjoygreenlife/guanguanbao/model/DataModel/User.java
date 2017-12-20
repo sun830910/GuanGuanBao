@@ -39,7 +39,7 @@ public class User {
 
     private int totalNums = 0;
 
-    private double totalCoals = 0.0;
+    private double totalCoals = 0;
 
     public User() {
 

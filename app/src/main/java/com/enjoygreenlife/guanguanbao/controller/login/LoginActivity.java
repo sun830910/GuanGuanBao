@@ -19,7 +19,7 @@ import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool
 
 public class LoginActivity extends AppCompatActivity {
 
-
+    private Class<?> mClss;
     private TextView _userName;
     private TextView _userPassword;
     private Button _loginButton;
@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
         _register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(LoginActivity.this, "CLICK ON Register", Toast.LENGTH_LONG).show();
+                launchActivity(RegisterActivity.class);
             }
         });
 
@@ -130,6 +130,17 @@ public class LoginActivity extends AppCompatActivity {
             return true;
         } else {
             return false;
+        }
+    }
+
+    /**
+     * method for luanchActivity
+     */
+    public void launchActivity(Class<?> className) {
+        mClss = className;
+        Intent intent = new Intent(this, className);
+        if (mClss.equals(RegisterActivity.class)) {
+            startActivityForResult(intent, 9999);
         }
     }
 

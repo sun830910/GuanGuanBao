@@ -15,13 +15,29 @@
     <string name="title_forgetPassword">忘记密码?</string>
     <string name="title_logout">登出</string>
 
-    <string name="title_location_permission">此應用程序需要位置權限</string>
-    <string name="text_location_permission">此應用程序需要位置權限</string>
-    <string name="ok">確定</string>
+    <string name="title_register_page">我要注册</string>
+    <string name="desc_registerHeaderImage">registerHeaderImage</string>
+    <string name="title_register_account">帐号：</string>
+    <string name="hint_register_agreePolicy">请输入帐号</string>
+    <string name="title_register_phoneNumber">手机号：</string>
+    <string name="hint_register_phoneNumber">请输入手机号</string>
+    <string name="title_register_mail">邮箱：</string>
+    <string name="hint_register_mail">请输入邮箱</string>
+    <string name="title_register_password">密码：</string>
+    <string name="hint_register_password">请输入密码</string>
+    <string name="title_register_confirmPassword">确认密码：</string>
+    <string name="hint_register_confirmPassword">请再次入密码</string>
+    <string name="title_register_agreePolicy">我已阅读并同意服务条款</string>
+    <string name="title_register_policy">服务条款</string>
+    <string name="title_register_submit">提交</string>
 
-    <string name="hint_username_password_input_null">帳號密碼不可為空！！</string>
+    <string name="title_location_permission">此应用程序需要位置权限</string>
+    <string name="text_location_permission">此应用程序需要位置权限</string>
+    <string name="ok">确定</string>
 
-    <string name="error_login_fail">登入失敗...請檢查帳號密碼"</string>
+    <string name="hint_username_password_input_null">帐号密码不可为空！！</string>
+
+    <string name="error_login_fail">登入失败...请检查帐号密码"</string>
 
     <string name="title_home">主页</string>
     <string name="title_notifications">消息</string>
@@ -37,8 +53,8 @@
     <string name="content_point_scanner_success_prefix">共获得</string>
     <string name="content_point_scanner_success_suffix">积分</string>
 
-    <string name="unit_co2_gram">公克</string>
-    <string name="title_total_co2">减少碳足迹(公克)</string>
+    <string name="unit_co2_gram">克</string>
+    <string name="title_total_co2">减少碳足迹</string>
     <string name="unit_bottle">个</string>
     <string name="unit_point">分</string>
     <string name="unit_money">元</string>
@@ -82,6 +98,6 @@
     <string name="setting_news">新闻推播通知</string>
 
     <string name="user_file_key">user_data_file_test</string>
-    <string name="no_geo_result">查無結果</string>
+    <string name="no_geo_result">查无结果</string>
 
 </resources>

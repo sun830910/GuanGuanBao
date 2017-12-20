@@ -205,16 +205,6 @@
                         android:textSize="30sp" />
 
                     <TextView
-                        android:id="@+id/unit_bottles"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/total_bottles"
-                        android:layout_toRightOf="@id/total_bottles"
-                        android:text="@string/unit_bottle"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
-
-                    <TextView
                         android:id="@+id/title_total_bottles"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -256,15 +246,6 @@
                         android:textColor="@color/black"
                         android:textSize="30sp" />
 
-                    <TextView
-                        android:id="@+id/unit_bottles2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/total_points"
-                        android:layout_toRightOf="@id/total_points"
-                        android:text="@string/unit_point"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -298,15 +279,6 @@
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
-                    <TextView
-                        android:id="@+id/unit_bottles3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/total_rewards"
-                        android:layout_toRightOf="@id/total_rewards"
-                        android:text="@string/unit_money"
-                        android:textColor="@color/black"
-                        android:textSize="16sp" />
                 </RelativeLayout>
 
             </LinearLayout>

@@ -29,8 +29,7 @@
     <uses-permission android:name="android.permission.WRITE_SETTINGS" />
     <uses-permission android:name="android.permission.CAMERA" />
 
-    <!--<service android:name="com.amap.api.location.APSService" />-->
-
+    <!-- <service android:name="com.amap.api.location.APSService" /> -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -49,6 +48,7 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -64,7 +64,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".controller.scanner.ScannerResultActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".controller.settings.opinion.OpinionActivity"
             android:screenOrientation="portrait" />
@@ -76,7 +76,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".controller.settings.generalSetting.GeneralSettingActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controller.login.RegisterActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
