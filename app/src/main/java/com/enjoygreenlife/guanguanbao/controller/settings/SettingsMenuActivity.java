@@ -6,52 +6,64 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
-import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
-import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
 import com.enjoygreenlife.guanguanbao.controller.settings.aboutApp.AboutAppActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.generalSetting.GeneralSettingActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.opinion.OpinionActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.opinion.OpinionLastActivity;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
+import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
+import com.enjoygreenlife.guanguanbao.model.DataModel.SimpleHttpResponse;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
+import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsMenuActivity extends AppCompatActivity {
 
-    List<SettingItem> _settingItemList = new ArrayList<SettingItem>();
+    private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
+    private SharedFileHandler _sharedFileHandler = new SharedFileHandler();
+    private List<SettingItem> _settingItemList = new ArrayList<SettingItem>();
+    private Button _logoutButton;
     private ListView _settingListView;
     private SettingListAdapter _settingListAdapter;
 
 
     /*** 根据Item的position位置来判断具体跳转至哪个Activity */
+
     /*** 根据Item的position位置来判断具体跳转至哪个Activity */
-    private void toNewActivity(int position){
+    private void toNewActivity(int position) {
         Intent i;
-        switch (position){
+        switch (position) {
             case 0:
-                i = new Intent(SettingsMenuActivity.this,OpinionLastActivity.class);
+                i = new Intent(SettingsMenuActivity.this, OpinionLastActivity.class);
                 break;
             case 1:
-                i = new Intent(SettingsMenuActivity.this,GeneralSettingActivity.class);
+                i = new Intent(SettingsMenuActivity.this, GeneralSettingActivity.class);
                 break;
             case 2:
-                i = new Intent(SettingsMenuActivity.this,OpinionActivity.class);
+                i = new Intent(SettingsMenuActivity.this, OpinionActivity.class);
                 break;
             case 3:
-                i = new Intent(SettingsMenuActivity.this,AboutAppActivity.class);
+                i = new Intent(SettingsMenuActivity.this, AboutAppActivity.class);
                 break;
 
             default:
-                i = new Intent(SettingsMenuActivity.this,SettingsMenuActivity.class);
+                i = new Intent(SettingsMenuActivity.this, SettingsMenuActivity.class);
                 break;
         }
         startActivity(i);
     }
 
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +76,13 @@ public class SettingsMenuActivity extends AppCompatActivity {
     }
 
     private void processController() {
+        _logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                logout();
+            }
+        });
+
         // ListView Item Click Listener
         AdapterView.OnItemClickListener itemListener = new AdapterView.OnItemClickListener() {
             @Override
@@ -82,6 +101,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(getString(R.string.bar_title_settings));
 
+        _logoutButton = (Button) findViewById(R.id.logout_button);
         _settingListView = (ListView) findViewById(R.id.setting_list);
 
         _settingItemList.add(new SettingItem(getString(R.string.title_edit_personal), "ic_edit_personal"));
@@ -99,5 +119,34 @@ public class SettingsMenuActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         finish();
+    }
+
+    private void logout() {
+        String json = _apiJsonFactory.getLogoutJson(_sharedFileHandler.retreiveUserSession(SettingsMenuActivity.this), _sharedFileHandler.retreiveUserID(SettingsMenuActivity.this));
+        System.out.println(json);
+        HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
+        httpConnectionTool.postMethod(new URLFactory().getLogoutURL(), json, new HttpConnectionToolCallback() {
+            @Override
+            public void onSuccess(String result) {
+                final SimpleHttpResponse simpleHttpResponse = _apiJsonFactory.parseSimpleHttpResponse(result);
+                System.out.println(result);
+                if (simpleHttpResponse.getCode() == 1) {
+                    // Update UI
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            _sharedFileHandler.saveUserSession(SettingsMenuActivity.this, "", 0);
+//                            Toast.makeText(SettingsMenuActivity.this, "已登出", Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent();
+                            intent.putExtra("LOGOUT", true);
+                            setResult(998, intent);
+                            finish();
+                        }
+                    });
+                } else {
+                    Toast.makeText(SettingsMenuActivity.this, "登出失敗", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

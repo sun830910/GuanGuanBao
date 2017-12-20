@@ -4,6 +4,7 @@ import android.location.Location;
 
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
+import com.enjoygreenlife.guanguanbao.model.DataModel.SimpleHttpResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.google.gson.Gson;
 
@@ -19,6 +20,10 @@ public class ApiJsonFactory {
 
     public String getUserInfoJson(String session, String userID) {
         return "{\"route\":\"getUserInfo\",\"session\":\"" + session + "\", \"userId\":" + userID + "}";
+    }
+
+    public String getLogoutJson(String session, String userID) {
+        return "{\"route\":\"logout\",\"session\":\"" + session + "\", \"userId\":" + userID + "}";
     }
 
     public String scanQRcodeJson(String session, String userID, String QRCode, String QRCodeImg, String orderNumber) {
@@ -40,6 +45,11 @@ public class ApiJsonFactory {
                 "\"latitude\":" + location.getLatitude() + "," +
                 "\"longitude\":" + location.getLongitude() + "" +
                "}";
+    }
+
+    public SimpleHttpResponse parseSimpleHttpResponse(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, SimpleHttpResponse.class);
     }
 
     public UserLoginResponse parseUserLoginResponse(String json) {

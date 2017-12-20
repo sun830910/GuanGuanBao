@@ -101,8 +101,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (checkInputValue()) {
                     login();
-//                   parseResponse();
-//                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, getText(R.string.hint_username_password_input_null), Toast.LENGTH_LONG).show();
                 }

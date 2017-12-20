@@ -10,6 +10,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -38,6 +40,9 @@ import com.amap.api.services.weather.WeatherSearch;
 import com.amap.api.services.weather.WeatherSearch.OnWeatherSearchListener;
 import com.amap.api.services.weather.WeatherSearchQuery;
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
+import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
+import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
@@ -45,14 +50,12 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.WeatherResultConverter;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachine;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
+import com.enjoygreenlife.guanguanbao.tool.amap.AMapUtil;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
-import com.enjoygreenlife.guanguanbao.tool.amap.AMapUtil;
-import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
-import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
-import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener,
@@ -151,85 +154,88 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == 998) {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+            if (data.getBooleanExtra("LOGOUT", false)) {
+                launchActivity(LoginActivity.class);
+            }
         } else if (requestCode == 997) {
-            getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
-            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+                mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+            }
         }
-    }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        @Override
+        protected void onCreate (Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_home);
 
-        processViews(savedInstanceState);
-        checkLoginStatus();
-    }
+            processViews(savedInstanceState);
+            checkLoginStatus();
+        }
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        _mapView.onResume();
-    }
+        /**
+         * 方法必须重写
+         */
+        @Override
+        protected void onResume () {
+            super.onResume();
+            _mapView.onResume();
+        }
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        _mapView.onPause();
-    }
+        /**
+         * 方法必须重写
+         */
+        @Override
+        protected void onPause () {
+            super.onPause();
+            _mapView.onPause();
+        }
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        _mapView.onSaveInstanceState(outState);
-    }
+        /**
+         * 方法必须重写
+         */
+        @Override
+        protected void onSaveInstanceState (Bundle outState){
+            super.onSaveInstanceState(outState);
+            _mapView.onSaveInstanceState(outState);
+        }
 
-    /**
-     * 方法必须重写
-     */
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        _mapView.onDestroy();
-    }
+        /**
+         * 方法必须重写
+         */
+        @Override
+        protected void onDestroy () {
+            super.onDestroy();
+            _mapView.onDestroy();
+        }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        @Override
+        public void onRequestPermissionsResult ( int requestCode,
+        String permissions[], int[] grantResults){
+            switch (requestCode) {
+                case MY_PERMISSIONS_REQUEST_LOCATION: {
+                    // If request is cancelled, the result arrays are empty.
+                    if (grantResults.length > 0
+                            && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
+                        // permission was granted, yay! Do the
+                        // location-related task you need to do.
+                        if (ContextCompat.checkSelfPermission(this,
+                                Manifest.permission.ACCESS_FINE_LOCATION)
+                                == PackageManager.PERMISSION_GRANTED) {
+
+                        }
+
+                    } else {
+
+                        // permission denied, boo! Disable the
+                        // functionality that depends on this permission.
 
                     }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-
+                    return;
                 }
-                return;
-            }
 
+            }
         }
-    }
 
 
     private void processViews(Bundle savedInstanceState) {
@@ -427,13 +433,16 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-//                            _progress.setVisibility(View.INVISIBLE);
+//                          _progress.setVisibility(View.INVISIBLE);
                             _userNameText.setText(userLoginResponse.getUser().getUserName());
                             _userPhoneText.setText(userLoginResponse.getUser().getPhoneNumber());
-                            _totalCO2Text.setText(String.format("%.1f", userLoginResponse.getUser().getTotalCoals()));
+                            String coalStr = String.format(Locale.getDefault(), "%.1f", userLoginResponse.getUser().getTotalCoals()) + "g";
+                            SpannableString coalSpanString = new SpannableString(coalStr);
+                            coalSpanString.setSpan(new RelativeSizeSpan(.5f), coalStr.length() - 1, coalStr.length(), 0); // set size
+                            _totalCO2Text.setText(coalSpanString);
                             _totalBottlesText.setText(String.valueOf(userLoginResponse.getUser().getTotalNums()));
-                            _totalRewards.setText(String.format("%.0f", userLoginResponse.getUser().getSumPoint()));
-                            _totalPointsText.setText(String.format("%.0f", userLoginResponse.getUser().getWallet()));
+                            _totalRewards.setText(String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getSumPoint()));
+                            _totalPointsText.setText(String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getWallet()));
 
                             Toast.makeText(HomeActivity.this, "資料已更新", Toast.LENGTH_LONG).show();
                         }

@@ -11,6 +11,10 @@ public class URLFactory {
         return new String(DOMAIN_NAME + "login");
     }
 
+    public String getLogoutURL() {
+        return new String(DOMAIN_NAME + "logout");
+    }
+
     public String getUerInfoURL() {
         return new String(DOMAIN_NAME + "getUserInfo");
     }
