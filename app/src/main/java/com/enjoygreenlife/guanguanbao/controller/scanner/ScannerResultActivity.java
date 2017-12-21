@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 
 public class ScannerResultActivity extends AppCompatActivity {
     private ScanQRCodeResult _result = new ScanQRCodeResult();
@@ -70,7 +71,7 @@ public class ScannerResultActivity extends AppCompatActivity {
     private void closeActivity() {
         Intent intent = new Intent();
         intent.putExtra("SUCCESS", true);
-        setResult(1001, intent);
+        setResult(ActivityManager.SCANNER_RESULT_ACTIVITY.getValue(), intent);
         finish();
     }
 }

@@ -47,6 +47,18 @@ public class ApiJsonFactory {
                "}";
     }
 
+    public String getRegisterJson(String account, String password, String phone, String mail) {
+        return "{" +
+                "\"route\":\"register\"," +
+                "\"register\":{" +
+                "\"userName\":\"" + account + "\"," +
+                "\"userPassword\":\"" + password + "\"," +
+                "\"phoneNumber\":\"" + phone + "\"," +
+                "\"email\":\"" + mail + "\"," +
+                "\"repassword\":\"" + password + "\"," +
+                "}}";
+    }
+
     public SimpleHttpResponse parseSimpleHttpResponse(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, SimpleHttpResponse.class);

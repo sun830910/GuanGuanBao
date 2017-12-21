@@ -15,6 +15,10 @@ public class URLFactory {
         return new String(DOMAIN_NAME + "logout");
     }
 
+    public String getRegisterURL() {
+        return new String(DOMAIN_NAME + "register");
+    }
+
     public String getUerInfoURL() {
         return new String(DOMAIN_NAME + "getUserInfo");
     }

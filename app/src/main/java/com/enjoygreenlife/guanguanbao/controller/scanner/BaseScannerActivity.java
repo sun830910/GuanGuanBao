@@ -12,6 +12,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.QRCodeStructure;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 import com.google.gson.Gson;
@@ -63,7 +64,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
             intent.putExtra("WEIGHT_OF_BOTTLES", _scanQRCodeResult.getTotalWeight());
             intent.putExtra("WEIGHT_OF_COALS", _scanQRCodeResult.getTotalCoals());
             intent.putExtra("POINTS", _scanQRCodeResult.getTotalPoint());
-            startActivityForResult(intent, 1001);
+            startActivityForResult(intent, ActivityManager.SCANNER_RESULT_ACTIVITY.getValue());
         }
     }
 
@@ -71,7 +72,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1001) {
+        if (requestCode == ActivityManager.SCANNER_RESULT_ACTIVITY.getValue()) {
             closeActivity(true);
         }
     }
@@ -125,7 +126,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     private void closeActivity(boolean resultCheck) {
         Intent intent = new Intent();
         intent.putExtra("SUCCESS", resultCheck);
-        setResult(999, intent);
+        setResult(ActivityManager.BASESCANNER_ACTIVITY.getValue(), intent);
         finish();
     }
 }

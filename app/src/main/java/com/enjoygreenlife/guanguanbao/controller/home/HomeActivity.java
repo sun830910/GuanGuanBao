@@ -50,6 +50,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.WeatherResultConverter;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachine;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 import com.enjoygreenlife.guanguanbao.tool.amap.AMapUtil;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
@@ -127,11 +128,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         } else {
             Intent intent = new Intent(this, className);
             if (mClss.equals(BaseScannerActivity.class)) {
-                startActivityForResult(intent, 999);
+                System.out.println("+++++++" + ActivityManager.BASESCANNER_ACTIVITY.getValue());
+                startActivityForResult(intent, ActivityManager.BASESCANNER_ACTIVITY.getValue());
             } else if (mClss.equals(SettingsMenuActivity.class)) {
-                startActivityForResult(intent, 998);
+                startActivityForResult(intent, ActivityManager.SETTINGS_MENU_ACTIVITY.getValue());
             } else if (mClss.equals(LoginActivity.class)) {
-                startActivityForResult(intent, 997);
+                System.out.println("+++++++" + ActivityManager.LOGIN_ACTIVITY.getValue());
+                startActivityForResult(intent, ActivityManager.LOGIN_ACTIVITY.getValue());
             }
 
         }
@@ -144,7 +147,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        if (requestCode == 999) {
+        if (requestCode == ActivityManager.BASESCANNER_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
 //            if (data.getBooleanExtra("SUCCESS", false)) {
 //                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
@@ -152,12 +155,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
 //                System.out.println("CLOSE");
 //            }
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
-        } else if (requestCode == 998) {
+        } else if (requestCode == ActivityManager.SETTINGS_MENU_ACTIVITY.getValue()) {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
             if (data.getBooleanExtra("LOGOUT", false)) {
                 launchActivity(LoginActivity.class);
             }
-        } else if (requestCode == 997) {
+        } else if (requestCode == ActivityManager.LOGIN_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         }

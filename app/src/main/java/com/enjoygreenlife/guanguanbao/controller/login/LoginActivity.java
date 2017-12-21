@@ -14,6 +14,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 //                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent();
                             intent.putExtra("LOGIN_SUCCESS", true);
-                            setResult(999, intent);
+                            setResult(ActivityManager.LOGIN_ACTIVITY.getValue(), intent);
                             finish();
                         }
                     });
@@ -140,7 +141,7 @@ public class LoginActivity extends AppCompatActivity {
         mClss = className;
         Intent intent = new Intent(this, className);
         if (mClss.equals(RegisterActivity.class)) {
-            startActivityForResult(intent, 9999);
+            startActivityForResult(intent, ActivityManager.REGISTER_ACTIVITY.getValue());
         }
     }
 

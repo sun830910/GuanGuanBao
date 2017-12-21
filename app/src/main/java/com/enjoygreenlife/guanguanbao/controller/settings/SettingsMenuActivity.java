@@ -19,6 +19,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.SimpleHttpResponse;
+import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingItem;
 import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAdapter;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
@@ -139,7 +140,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
 //                            Toast.makeText(SettingsMenuActivity.this, "已登出", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent();
                             intent.putExtra("LOGOUT", true);
-                            setResult(998, intent);
+                            setResult(ActivityManager.SETTINGS_MENU_ACTIVITY.getValue(), intent);
                             finish();
                         }
                     });
