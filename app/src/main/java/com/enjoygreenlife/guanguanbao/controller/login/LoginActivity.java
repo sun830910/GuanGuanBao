@@ -145,4 +145,14 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if (requestCode == ActivityManager.REGISTER_ACTIVITY.getValue()) {
+            if (data.getBooleanExtra("REGISTER_SUCCESS", false)) {
+                Toast.makeText(LoginActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
+            }
+        } 
+    }
+
 }

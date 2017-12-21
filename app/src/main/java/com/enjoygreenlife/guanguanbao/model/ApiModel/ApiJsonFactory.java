@@ -55,7 +55,7 @@ public class ApiJsonFactory {
                 "\"userPassword\":\"" + password + "\"," +
                 "\"phoneNumber\":\"" + phone + "\"," +
                 "\"email\":\"" + mail + "\"," +
-                "\"repassword\":\"" + password + "\"," +
+                "\"repassword\":\"" + password + "\"" +
                 "}}";
     }
 
