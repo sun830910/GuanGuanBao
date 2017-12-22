@@ -131,22 +131,17 @@ public class SettingsMenuActivity extends AppCompatActivity {
             public void onSuccess(String result) {
                 final SimpleHttpResponse simpleHttpResponse = _apiJsonFactory.parseSimpleHttpResponse(result);
                 System.out.println(result);
-                if (simpleHttpResponse.getCode() == 1) {
-                    // Update UI
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            _sharedFileHandler.saveUserSession(SettingsMenuActivity.this, "", 0);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        _sharedFileHandler.saveUserSession(SettingsMenuActivity.this, "", 0);
 //                            Toast.makeText(SettingsMenuActivity.this, "已登出", Toast.LENGTH_LONG).show();
-                            Intent intent = new Intent();
-                            intent.putExtra("LOGOUT", true);
-                            setResult(ActivityManager.SETTINGS_MENU_ACTIVITY.getValue(), intent);
-                            finish();
-                        }
-                    });
-                } else {
-                    Toast.makeText(SettingsMenuActivity.this, "登出失敗", Toast.LENGTH_LONG).show();
-                }
+                        Intent intent = new Intent();
+                        intent.putExtra("LOGOUT", true);
+                        setResult(ActivityManager.SETTINGS_MENU_ACTIVITY.getValue(), intent);
+                        finish();
+                    }
+                });
             }
         });
     }

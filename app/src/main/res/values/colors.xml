@@ -13,4 +13,5 @@
     <color name="colorLightGrassGreen">#8bc34a</color>
     <color name="colorYellowGreen">#ebff00</color>
     <color name="colorBlueGreen">#00ffb3</color>
+    <color name="colorGreenBackground">#d2e9aa</color>
 </resources>

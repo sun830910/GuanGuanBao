@@ -223,5 +223,13 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("REGISTER_SUCCESS", false);
+        setResult(ActivityManager.REGISTER_ACTIVITY.getValue(), intent);
+        finish();
+    }
 }
 

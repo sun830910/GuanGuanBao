@@ -100,4 +100,7 @@
     <string name="user_file_key">user_data_file_test</string>
     <string name="no_geo_result">查无结果</string>
 
+    <string name="market_title_cash">提现</string>
+    <string name="market_title_drawer">抽奖</string>
+    <string name="market_title_lottery">刮刮卡</string>
 </resources>

@@ -177,7 +177,7 @@
         android:layout_marginLeft="100sp"
         android:layout_marginRight="100sp"
         android:layout_marginTop="20sp"
-        android:background="@android:color/holo_green_light"
+        android:background="@drawable/shape_rectangle_for_sent"
         android:text="@string/title_register" />
 
 </LinearLayout>
