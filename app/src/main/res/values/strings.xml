@@ -103,4 +103,9 @@
     <string name="market_title_cash">提现</string>
     <string name="market_title_drawer">抽奖</string>
     <string name="market_title_lottery">刮刮卡</string>
+    <string name="market_title_gift_info">抽獎資訊</string>
+
+    <string name="weather_live">实时</string>
+    <string name="weather_forecast">预报</string>
+    <string name="report_time">发布时间</string>
 </resources>

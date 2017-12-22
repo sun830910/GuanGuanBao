@@ -35,17 +35,21 @@
                 android:layout_toRightOf="@id/icon_personal_pic"
                 android:paddingTop="4sp"
                 android:text="@string/user_name"
-                android:textSize="18sp" />
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/user_phone"
+                android:id="@+id/market_user_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/icon_personal_pic"
                 android:layout_marginLeft="10sp"
                 android:layout_toRightOf="@id/icon_personal_pic"
                 android:paddingBottom="4sp"
-                android:text="@string/user_phone" />
+                android:text="356積分"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
 
         </RelativeLayout>
 
@@ -73,9 +77,10 @@
 
             <ImageView
                 android:id="@+id/img_market_cash"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="100sp"
                 android:contentDescription="@string/market_title_cash"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_coins" />
 
             <TextView
@@ -96,9 +101,10 @@
 
             <ImageView
                 android:id="@+id/img_market_draw"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="100sp"
                 android:contentDescription="@string/market_title_drawer"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_drawer" />
 
             <TextView
@@ -119,9 +125,10 @@
 
             <ImageView
                 android:id="@+id/img_market_lottery"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_height="100sp"
                 android:contentDescription="@string/market_title_lottery"
+                android:scaleType="fitCenter"
                 app:srcCompat="@drawable/img_lottery" />
 
             <TextView
@@ -132,6 +139,39 @@
                 android:text="@string/market_title_lottery"
                 android:textAlignment="center" />
         </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/spacing"
+        android:layout_width="match_parent"
+        android:layout_height="2sp"
+        android:background="@color/gray" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10sp"
+        android:background="@drawable/shape_rectangle_for_sent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10sp"
+        android:paddingTop="10sp">
+
+        <ImageView
+            android:id="@+id/market_img_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:contentDescription="@string/market_title_gift_info"
+            app:srcCompat="@drawable/img_giftbox" />
+
+        <TextView
+            android:id="@+id/market_title_gift_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/market_title_gift_info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
     </LinearLayout>
 
     <LinearLayout
@@ -161,8 +201,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="雙11購物津貼"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="雙11購物津貼50元"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -173,10 +214,11 @@
 
                     <ImageView
                         android:id="@+id/img_market_category_coupon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/img_coupon" />
+                        android:padding="10sp"
+                        app:srcCompat="@drawable/img_bill" />
 
                     <TextView
                         android:id="@+id/market_title_price_coupon"
@@ -206,8 +248,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="雙11購物津貼"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="2元話費券"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -218,17 +261,18 @@
 
                     <ImageView
                         android:id="@+id/img_market_category_coupon2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/img_coupon" />
+                        android:padding="10sp"
+                        app:srcCompat="@drawable/img_phone" />
 
                     <TextView
                         android:id="@+id/market_title_price_coupon2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="100積分"
+                        android:text="30積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 </LinearLayout>
@@ -257,8 +301,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="雙11購物津貼"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="電影代金券"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -269,17 +314,18 @@
 
                     <ImageView
                         android:id="@+id/img_market_category_coupon3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/img_coupon" />
+                        android:padding="10sp"
+                        app:srcCompat="@drawable/img_movie" />
 
                     <TextView
                         android:id="@+id/market_title_price_coupon3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="100積分"
+                        android:text="80積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 </LinearLayout>
@@ -302,8 +348,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
-                    android:text="雙11購物津貼"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+                    android:text="酷狗音樂免費15天"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -314,17 +361,18 @@
 
                     <ImageView
                         android:id="@+id/img_market_category_coupon4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="60sp"
+                        android:layout_height="60sp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/img_coupon" />
+                        android:padding="10sp"
+                        app:srcCompat="@drawable/img_music" />
 
                     <TextView
                         android:id="@+id/market_title_price_coupon4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="100積分"
+                        android:text="150積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
 
                 </LinearLayout>

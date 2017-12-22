@@ -46,6 +46,7 @@ import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
 import com.enjoygreenlife.guanguanbao.controller.market.MarketHomePageActivity;
 import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
+import com.enjoygreenlife.guanguanbao.controller.weather.WeatherInfoActivity;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
@@ -133,13 +134,16 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         } else {
             Intent intent = new Intent(this, className);
             if (mClss.equals(BaseScannerActivity.class)) {
-                startActivityForResult(intent, ActivityManager.BASESCANNER_ACTIVITY.getValue());
+                startActivityForResult(intent, ActivityManager.BASE_SCANNER_ACTIVITY.getValue());
             } else if (mClss.equals(SettingsMenuActivity.class)) {
                 startActivityForResult(intent, ActivityManager.SETTINGS_MENU_ACTIVITY.getValue());
             } else if (mClss.equals(LoginActivity.class)) {
                 startActivityForResult(intent, ActivityManager.LOGIN_ACTIVITY.getValue());
             } else if (mClss.equals(MarketHomePageActivity.class)) {
                 startActivityForResult(intent, ActivityManager.MARKET_HOME_ACTIVITY.getValue());
+            } else if (mClss.equals(WeatherInfoActivity.class)) {
+                intent.putExtra("CITY", cityName);
+                startActivityForResult(intent, ActivityManager.WEATHER_INFO_ACTIVITY.getValue());
             }
         }
     }
@@ -151,7 +155,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // check if the request code is same as what is passed  here it is 2
-        if (requestCode == ActivityManager.BASESCANNER_ACTIVITY.getValue()) {
+        if (requestCode == ActivityManager.BASE_SCANNER_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == ActivityManager.SETTINGS_MENU_ACTIVITY.getValue()) {
@@ -164,6 +168,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == ActivityManager.MARKET_HOME_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+        } else {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         }
     }
@@ -269,6 +275,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _tempreatureTextView = (TextView) findViewById(R.id.info_temperatureText);
 
         _weatherInfoImage = (ImageView) findViewById(R.id.icon_weather);
+        _weatherInfoImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchActivity(WeatherInfoActivity.class);
+            }
+        });
 
         _currentPointsGroup = (RelativeLayout) findViewById(R.id.current_points_group);
         _currentPointsGroup.setOnClickListener(new View.OnClickListener() {
@@ -363,7 +375,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                         @Override
                         public void run() {
                             _locationTextView.setText(cityName);
-                            searchliveweather();
+                            searchLiveWeather();
                         }
                     });
 
@@ -384,7 +396,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     /**
      * 实时天气查询
      */
-    private void searchliveweather() {
+    private void searchLiveWeather() {
         mquery = new WeatherSearchQuery(cityAdCode, WeatherSearchQuery.WEATHER_TYPE_LIVE);//检索参数为城市和天气类型，实时天气为1、天气预报为2
         mweathersearch = new WeatherSearch(this);
         mweathersearch.setOnWeatherSearchListener(this);

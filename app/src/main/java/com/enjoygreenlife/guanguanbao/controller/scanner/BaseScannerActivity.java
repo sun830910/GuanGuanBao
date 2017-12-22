@@ -126,7 +126,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     private void closeActivity(boolean resultCheck) {
         Intent intent = new Intent();
         intent.putExtra("SUCCESS", resultCheck);
-        setResult(ActivityManager.BASESCANNER_ACTIVITY.getValue(), intent);
+        setResult(ActivityManager.BASE_SCANNER_ACTIVITY.getValue(), intent);
         finish();
     }
 }
