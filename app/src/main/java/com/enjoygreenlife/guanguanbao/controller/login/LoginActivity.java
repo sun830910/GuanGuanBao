@@ -152,7 +152,7 @@ public class LoginActivity extends AppCompatActivity {
             if (data.getBooleanExtra("REGISTER_SUCCESS", false)) {
                 Toast.makeText(LoginActivity.this, "註冊成功", Toast.LENGTH_LONG).show();
             }
-        } 
+        }
     }
 
 }

@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
@@ -82,6 +83,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private String cityAdCode = "212000";
     //Custom Layouts
     private LinearLayout _homeView;
+    private SwipeRefreshLayout _mSwipeRefreshLayout;
     private BottomNavigationView _navigation;
     private TextView _userNameText;
     private TextView _userPhoneText;
@@ -243,6 +245,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
 
     private void processViews(Bundle savedInstanceState) {
         _homeView = (LinearLayout) findViewById(R.id.home_frame);
+        _mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.home_swipe_refresh);
+        _mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+            }
+        });
 
         _navigation = (BottomNavigationView) findViewById(R.id.navigation);
         _navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -460,6 +469,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                             totalPointsSpanStr.setSpan(new RelativeSizeSpan(.5f), totalPointsSpanStr.length() - 1, totalPointsSpanStr.length(), 0); // set size
                             _totalPointsText.setText(totalPointsSpanStr);
 
+                            _mSwipeRefreshLayout.setRefreshing(false);
                             Toast.makeText(HomeActivity.this, "資料已更新", Toast.LENGTH_LONG).show();
                         }
                     });
