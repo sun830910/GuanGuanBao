@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,6 +43,7 @@ import com.amap.api.services.weather.WeatherSearch.OnWeatherSearchListener;
 import com.amap.api.services.weather.WeatherSearchQuery;
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
+import com.enjoygreenlife.guanguanbao.controller.market.MarketHomePageActivity;
 import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
@@ -94,6 +96,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private TextView _locationTextView;
     private TextView _tempreatureTextView;
     private ImageView _weatherInfoImage;
+    private RelativeLayout _currentPointsGroup;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -130,15 +133,14 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         } else {
             Intent intent = new Intent(this, className);
             if (mClss.equals(BaseScannerActivity.class)) {
-                System.out.println("+++++++" + ActivityManager.BASESCANNER_ACTIVITY.getValue());
                 startActivityForResult(intent, ActivityManager.BASESCANNER_ACTIVITY.getValue());
             } else if (mClss.equals(SettingsMenuActivity.class)) {
                 startActivityForResult(intent, ActivityManager.SETTINGS_MENU_ACTIVITY.getValue());
             } else if (mClss.equals(LoginActivity.class)) {
-                System.out.println("+++++++" + ActivityManager.LOGIN_ACTIVITY.getValue());
                 startActivityForResult(intent, ActivityManager.LOGIN_ACTIVITY.getValue());
+            } else if (mClss.equals(MarketHomePageActivity.class)) {
+                startActivityForResult(intent, ActivityManager.MARKET_HOME_ACTIVITY.getValue());
             }
-
         }
     }
 
@@ -163,6 +165,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 launchActivity(LoginActivity.class);
             }
         } else if (requestCode == ActivityManager.LOGIN_ACTIVITY.getValue()) {
+            getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
+            mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
+        } else if (requestCode == ActivityManager.MARKET_HOME_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         }
@@ -269,6 +274,14 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _tempreatureTextView = (TextView) findViewById(R.id.info_temperatureText);
 
         _weatherInfoImage = (ImageView) findViewById(R.id.icon_weather);
+
+        _currentPointsGroup = (RelativeLayout) findViewById(R.id.current_points_group);
+        _currentPointsGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchActivity(MarketHomePageActivity.class);
+            }
+        });
         mapInit();
     }
 

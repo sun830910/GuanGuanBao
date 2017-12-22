@@ -229,6 +229,7 @@
                         </RelativeLayout>
 
                         <RelativeLayout
+                            android:id="@+id/current_points_group"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="4sp"

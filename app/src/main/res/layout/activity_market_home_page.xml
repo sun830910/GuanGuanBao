@@ -175,7 +175,6 @@
                         android:id="@+id/img_market_category_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/market_title_category_coupon"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/img_coupon" />
 
@@ -183,8 +182,6 @@
                         android:id="@+id/market_title_price_coupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/img_market_category_coupon3"
-                        android:layout_toRightOf="@id/img_market_category_coupon3"
                         android:layout_weight="1"
                         android:text="100積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
@@ -223,7 +220,6 @@
                         android:id="@+id/img_market_category_coupon2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/market_title_category_coupon"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/img_coupon" />
 
@@ -231,8 +227,6 @@
                         android:id="@+id/market_title_price_coupon2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/img_market_category_coupon3"
-                        android:layout_toRightOf="@id/img_market_category_coupon3"
                         android:layout_weight="1"
                         android:text="100積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
@@ -277,7 +271,6 @@
                         android:id="@+id/img_market_category_coupon3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/market_title_category_coupon"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/img_coupon" />
 
@@ -285,8 +278,6 @@
                         android:id="@+id/market_title_price_coupon3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/img_market_category_coupon3"
-                        android:layout_toRightOf="@id/img_market_category_coupon3"
                         android:layout_weight="1"
                         android:text="100積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
@@ -325,7 +316,6 @@
                         android:id="@+id/img_market_category_coupon4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/market_title_category_coupon"
                         android:layout_weight="1"
                         app:srcCompat="@drawable/img_coupon" />
 
@@ -333,8 +323,6 @@
                         android:id="@+id/market_title_price_coupon4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@id/img_market_category_coupon3"
-                        android:layout_toRightOf="@id/img_market_category_coupon3"
                         android:layout_weight="1"
                         android:text="100積分"
                         android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
