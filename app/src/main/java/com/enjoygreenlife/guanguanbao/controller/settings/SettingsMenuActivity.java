@@ -145,4 +145,12 @@ public class SettingsMenuActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("LOGOUT", false);
+        setResult(ActivityManager.SETTINGS_MENU_ACTIVITY.getValue(), intent);
+        finish();
+    }
 }

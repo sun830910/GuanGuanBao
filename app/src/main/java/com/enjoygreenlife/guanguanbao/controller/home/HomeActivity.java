@@ -153,11 +153,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         // check if the request code is same as what is passed  here it is 2
         if (requestCode == ActivityManager.BASESCANNER_ACTIVITY.getValue()) {
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
-//            if (data.getBooleanExtra("SUCCESS", false)) {
-//                getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
-//            } else {
-//                System.out.println("CLOSE");
-//            }
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
         } else if (requestCode == ActivityManager.SETTINGS_MENU_ACTIVITY.getValue()) {
             mOnNavigationItemSelectedListener.onNavigationItemSelected(_navigation.getMenu().getItem(0));
