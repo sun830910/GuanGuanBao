@@ -75,6 +75,7 @@
                 android:id="@+id/img_market_cash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/market_title_cash"
                 app:srcCompat="@drawable/img_coins" />
 
             <TextView
@@ -97,6 +98,7 @@
                 android:id="@+id/img_market_draw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/market_title_drawer"
                 app:srcCompat="@drawable/img_drawer" />
 
             <TextView
@@ -119,6 +121,7 @@
                 android:id="@+id/img_market_lottery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:contentDescription="@string/market_title_lottery"
                 app:srcCompat="@drawable/img_lottery" />
 
             <TextView
@@ -128,6 +131,216 @@
                 android:layout_marginTop="10sp"
                 android:text="@string/market_title_lottery"
                 android:textAlignment="center" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:background="@drawable/shape_rectangle_for_sent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/market_title_category_coupon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="雙11購物津貼"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/market_title_category_coupon"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_market_category_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/market_title_category_coupon"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/img_coupon" />
+
+                    <TextView
+                        android:id="@+id/market_title_price_coupon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_market_category_coupon3"
+                        android:layout_toRightOf="@id/img_market_category_coupon3"
+                        android:layout_weight="1"
+                        android:text="100積分"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:background="@drawable/shape_rectangle_for_sent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/market_title_category_coupon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="雙11購物津貼"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/market_title_category_coupon2"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_market_category_coupon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/market_title_category_coupon"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/img_coupon" />
+
+                    <TextView
+                        android:id="@+id/market_title_price_coupon2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_market_category_coupon3"
+                        android:layout_toRightOf="@id/img_market_category_coupon3"
+                        android:layout_weight="1"
+                        android:text="100積分"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="10sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:background="@drawable/shape_rectangle_for_sent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/market_title_category_coupon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="雙11購物津貼"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/market_title_category_coupon3"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_market_category_coupon3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/market_title_category_coupon"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/img_coupon" />
+
+                    <TextView
+                        android:id="@+id/market_title_price_coupon3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_market_category_coupon3"
+                        android:layout_toRightOf="@id/img_market_category_coupon3"
+                        android:layout_weight="1"
+                        android:text="100積分"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="10sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:background="@drawable/shape_rectangle_for_sent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/market_title_category_coupon4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="雙11購物津貼"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/market_title_category_coupon4"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/img_market_category_coupon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/market_title_category_coupon"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/img_coupon" />
+
+                    <TextView
+                        android:id="@+id/market_title_price_coupon4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/img_market_category_coupon3"
+                        android:layout_toRightOf="@id/img_market_category_coupon3"
+                        android:layout_weight="1"
+                        android:text="100積分"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 
