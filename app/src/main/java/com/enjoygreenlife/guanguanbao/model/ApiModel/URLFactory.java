@@ -30,4 +30,8 @@ public class URLFactory {
     public String getStationURL() {
         return new String(DOMAIN_NAME + "getStation");
     }
+
+    public String getItemURL() {
+        return new String(DOMAIN_NAME + "getItem");
+    }
 }

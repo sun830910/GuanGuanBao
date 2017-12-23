@@ -2,6 +2,7 @@ package com.enjoygreenlife.guanguanbao.model.ApiModel;
 
 import android.location.Location;
 
+import com.enjoygreenlife.guanguanbao.model.DataModel.ItemResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.SimpleHttpResponse;
@@ -59,6 +60,15 @@ public class ApiJsonFactory {
                 "}}";
     }
 
+    public String getItemJson(String session, String userID, int type) {
+        return "{" +
+                "\"route\":\"getItem\"," +
+                "\"session\":\"" + session + "\"," +
+                "\"userId\":" + userID + "," +
+                "\"commodityTypeId\":" + type +
+                "}";
+    }
+
     public SimpleHttpResponse parseSimpleHttpResponse(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, SimpleHttpResponse.class);
@@ -77,5 +87,10 @@ public class ApiJsonFactory {
     public RecycleMachineResponse parseRecycleMachineResponse(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, RecycleMachineResponse.class);
+    }
+
+    public ItemResponse parseItemResponse(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, ItemResponse.class);
     }
 }

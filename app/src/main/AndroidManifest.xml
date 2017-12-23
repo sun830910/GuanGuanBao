@@ -83,7 +83,12 @@
         <activity
             android:name=".controller.market.MarketHomePageActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".controller.weather.WeatherInfoActivity"></activity>
+        <activity
+            android:name=".controller.weather.WeatherInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".controller.market.drawCash.DrawCashMenuActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

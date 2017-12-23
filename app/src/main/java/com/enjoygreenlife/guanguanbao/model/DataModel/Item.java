@@ -10,7 +10,7 @@ public class Item {
     private int id = 0;
     private String name = "";
     private String description = "";
-    private ArrayList<String> picture = new ArrayList<String>();
+    private String picture = "";
     private double price = 0;
     private int number = 0;
     private double realMoney = 0;
@@ -28,7 +28,7 @@ public class Item {
         return description;
     }
 
-    public ArrayList<String> getPicture() {
+    public String getPicture() {
         return picture;
     }
 

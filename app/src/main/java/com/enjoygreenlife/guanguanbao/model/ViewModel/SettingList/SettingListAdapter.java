@@ -20,10 +20,10 @@ public class SettingListAdapter extends BaseAdapter {
     private LayoutInflater _myInflater;
     private List<SettingItem> _settingItemList;
     private Context _context;
-    public SettingListAdapter(Context context, List<SettingItem> movie) {
+    public SettingListAdapter(Context context, List<SettingItem> settingItems) {
         _context = context;
         _myInflater = LayoutInflater.from(context);
-        this._settingItemList = movie;
+        this._settingItemList = settingItems;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class SettingListAdapter extends BaseAdapter {
         viewHolder.icon.setImageResource(_context.getResources().getIdentifier(settingItem.getImgResName(),"drawable","com.enjoygreenlife.guanguanbao"));
         viewHolder.arrow.setImageResource(R.drawable.ic_next);
         // Return the completed view to render on screen
-        return convertView;
+        return result;
     }
 
     // View lookup cache
