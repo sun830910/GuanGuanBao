@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.enjoygreenlife.guanguanbao.controller.market.drawCash.DrawCashSuccessActivity">
+
+    <TextView
+        android:id="@+id/title_drawCashSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorLightGrassGreen"
+        android:paddingBottom="20sp"
+        android:paddingTop="20sp"
+        android:text="@string/exchange_success_title"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/exchange_cash_success_msg"
+            android:layout_width="match_parent"
+            android:layout_height="150sp"
+            android:layout_marginBottom="50sp"
+            android:layout_marginLeft="50sp"
+            android:layout_marginRight="50sp"
+            android:background="@drawable/shape_rectangle_for_sent"
+            android:gravity="center"
+            android:text="@string/exchange_success_msg"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <ImageView
+            android:id="@+id/imageView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10sp"
+            android:layout_marginTop="100sp"
+            app:srcCompat="@drawable/img_confetti_rightbelow" />
+
+        <Button
+            android:id="@+id/exchage_cash_success_ok_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/exchange_cash_success_msg"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="50sp"
+            android:background="@drawable/shape_rectangle_for_sent"
+            android:text="@string/alert_confirm_buy_product_title" />
+    </RelativeLayout>
+</LinearLayout>

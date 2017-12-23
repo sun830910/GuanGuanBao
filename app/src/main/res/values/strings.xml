@@ -107,8 +107,19 @@
 
     <string name="unit_draw_cash_points">積分</string>
     <string name="unit_draw_cash_money">元</string>
+    <string name="alert_confirm_buy_product_title">確認兌換</string>
+    <string name="alert_confirm_buy_product_msg">您確定要兌換</string>
+    <string name="alert_not_enough_point_title">積分不足</string>
+    <string name="alert_not_enough_points_msg">請再接再厲，多回收一些塑料瓶賺積分唷！</string>
+    <string name="alert_ok_title">確定</string>
+    <string name="alert_confirm_buy_title">確認兌換</string>
+    <string name="alert_cancel_buy_title">取消兌換</string>
+
+    <string name="exchange_success_title">提現成功</string>
+    <string name="exchange_success_msg">恭喜您以500積分\n成功提現2.5元</string>
 
     <string name="weather_live">实时</string>
     <string name="weather_forecast">预报</string>
     <string name="report_time">发布时间</string>
+    <string name="title_activity_draw_cash_success">DrawCashSuccessActivity</string>
 </resources>

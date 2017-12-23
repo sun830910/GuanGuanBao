@@ -2,12 +2,16 @@ package com.enjoygreenlife.guanguanbao.model.ApiModel;
 
 import android.location.Location;
 
+import com.enjoygreenlife.guanguanbao.model.DataModel.Item;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ItemResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleMachineResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.SimpleHttpResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.UserLoginResponse;
 import com.google.gson.Gson;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by luthertsai on 2017/11/18.
@@ -45,7 +49,7 @@ public class ApiJsonFactory {
                 "\"userId\":" + userID + "," +
                 "\"latitude\":" + location.getLatitude() + "," +
                 "\"longitude\":" + location.getLongitude() + "" +
-               "}";
+                "}";
     }
 
     public String getRegisterJson(String account, String password, String phone, String mail) {
@@ -66,6 +70,15 @@ public class ApiJsonFactory {
                 "\"session\":\"" + session + "\"," +
                 "\"userId\":" + userID + "," +
                 "\"commodityTypeId\":" + type +
+                "}";
+    }
+
+    public String buyItemsJson(String session, String userID, HashMap<Item, Integer> shoppingCart) {
+        return "{" +
+                "\"route\":\"buyItem\"," +
+                "\"session\":\"" + session + "\"," +
+                "\"userId\":" + userID + "," +
+                "\"commodity\":" + generateJsonFromShoppingCart(shoppingCart) +
                 "}";
     }
 
@@ -92,5 +105,23 @@ public class ApiJsonFactory {
     public ItemResponse parseItemResponse(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, ItemResponse.class);
+    }
+
+    private String generateJsonFromShoppingCart(HashMap<Item, Integer> shoppingCart) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        int i = 0;
+        for (Map.Entry<Item, Integer> entry : shoppingCart.entrySet()) {
+            Item item = entry.getKey();
+            Integer number = entry.getValue();
+            String itemJson = "{\"commodityId\":" + item.getId() + ", \"number\":" + number + "}";
+            stringBuilder.append(itemJson);
+            if (i != shoppingCart.size() - 1) {
+                stringBuilder.append(",");
+            }
+            i++;
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
     }
 }

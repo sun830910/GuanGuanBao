@@ -89,6 +89,7 @@
         <activity
             android:name=".controller.market.drawCash.DrawCashMenuActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".controller.market.drawCash.DrawCashSuccessActivity"></activity>
     </application>
 
 </manifest>

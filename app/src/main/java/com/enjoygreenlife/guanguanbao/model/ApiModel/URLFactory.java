@@ -34,4 +34,8 @@ public class URLFactory {
     public String getItemURL() {
         return new String(DOMAIN_NAME + "getItem");
     }
+
+    public String buyItemURL() {
+        return new String(DOMAIN_NAME + "buyItem");
+    }
 }
