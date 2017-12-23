@@ -82,6 +82,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
             getUserData();
         }
     }
+
     private void selectOnItem(int position) {
         if (_userPoints >= _mItemArrayList.get(position).getPrice()) {
             showConfirmBuyingItem(position);
@@ -202,7 +203,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         if (_shoppingCart.containsKey(item)) {
             _shoppingCart.put(item, _shoppingCart.get(item) + 1);
         } else {
-            _shoppingCart.put(item,1);
+            _shoppingCart.put(item, 1);
         }
         String session = _sharedFileHandler.retreiveUserSession(DrawCashMenuActivity.this);
         String userID = _sharedFileHandler.retreiveUserID(DrawCashMenuActivity.this);

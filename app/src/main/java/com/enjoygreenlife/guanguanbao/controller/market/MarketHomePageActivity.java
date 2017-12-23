@@ -65,6 +65,14 @@ public class MarketHomePageActivity extends AppCompatActivity {
         }
     }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // check if the request code is same as what is passed  here it is 2
+        if (requestCode == ActivityManager.MARKET_DRAW_CASH_ACTIVITY.getValue()) {
+            getUserData(_sharedFileHandler.retreiveUserSession(MarketHomePageActivity.this), _sharedFileHandler.retreiveUserID(MarketHomePageActivity.this));
+        }
+    }
+
     private void getUserData(String session, String userID) {
         String json = _apiJsonFactory.getUserInfoJson(session, userID);
         // Call Connection Tool to process login
