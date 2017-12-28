@@ -60,7 +60,7 @@
     <string name="unit_money">元</string>
     <string name="title_total_bottles">累积数量</string>
     <string name="title_total_points">当前积分</string>
-    <string name="title_total_rewards">累积现金</string>
+    <string name="title_total_rewards">累积积分</string>
 
     <string name="bar_title_settings">系统设置</string>
     <string name="title_edit_personal">帐号设定</string>
@@ -103,20 +103,20 @@
     <string name="market_title_cash">提现</string>
     <string name="market_title_drawer">抽奖</string>
     <string name="market_title_lottery">刮刮卡</string>
-    <string name="market_title_gift_info">抽獎資訊</string>
+    <string name="market_title_gift_info">抽奖资讯</string>
 
-    <string name="unit_draw_cash_points">積分</string>
+    <string name="unit_draw_cash_points">积分</string>
     <string name="unit_draw_cash_money">元</string>
-    <string name="alert_confirm_buy_product_title">確認兌換</string>
-    <string name="alert_confirm_buy_product_msg">您確定要兌換</string>
-    <string name="alert_not_enough_point_title">積分不足</string>
-    <string name="alert_not_enough_points_msg">請再接再厲，多回收一些塑料瓶賺積分唷！</string>
-    <string name="alert_ok_title">確定</string>
-    <string name="alert_confirm_buy_title">確認兌換</string>
-    <string name="alert_cancel_buy_title">取消兌換</string>
+    <string name="alert_confirm_buy_product_title">确认兑换</string>
+    <string name="alert_confirm_buy_product_msg">您确定要兑换</string>
+    <string name="alert_not_enough_point_title">积分不足</string>
+    <string name="alert_not_enough_points_msg">请再接再厉，多回收一些塑料瓶赚积分唷！</string>
+    <string name="alert_ok_title">确定</string>
+    <string name="alert_confirm_buy_title">确认兑换</string>
+    <string name="alert_cancel_buy_title">取消兑换</string>
 
-    <string name="exchange_success_title">提現成功</string>
-    <string name="exchange_success_msg">恭喜您以500積分\n成功提現2.5元</string>
+    <string name="exchange_success_title">提现成功</string>
+    <string name="exchange_success_msg">恭喜您以500积分\n成功提现2.5元</string>
 
     <string name="weather_live">实时</string>
     <string name="weather_forecast">预报</string>

@@ -1,20 +1,66 @@
 <resources>
     <string name="app_name">罐罐寶</string>
 
+    <string name="login_app_name">綠享生活罐罐寶</string>
+    <string name="login_recycle_name">智能回收機</string>
+
     <string name="user_name">蔡易儒</string>
     <string name="user_phone">15618010053</string>
+
+    <string name="title_loginPageTitle">會員登入</string>
+    <string name="user_name_hint">請輸入帳號</string>
+    <string name="user_password_hint">請輸入密碼</string>
+    <string name="title_loginButton">登入</string>
+    <string name="title_register">註冊</string>
+    <string name="title_forgetPassword">忘記密碼?</string>
+    <string name="title_logout">登出</string>
+
+    <string name="title_register_page">我要註冊</string>
+    <string name="desc_registerHeaderImage">registerHeaderImage</string>
+    <string name="title_register_account">帳號：</string>
+    <string name="hint_register_agreePolicy">請輸入帳號</string>
+    <string name="title_register_phoneNumber">手機號：</string>
+    <string name="hint_register_phoneNumber">請輸入手機號</string>
+    <string name="title_register_mail">郵箱：</string>
+    <string name="hint_register_mail">請輸入郵箱</string>
+    <string name="title_register_password">密碼：</string>
+    <string name="hint_register_password">請輸入密碼</string>
+    <string name="title_register_confirmPassword">確認密碼：</string>
+    <string name="hint_register_confirmPassword">請再次入密碼</string>
+    <string name="title_register_agreePolicy">我已閱讀並同意服務條款</string>
+    <string name="title_register_policy">服務條款</string>
+    <string name="title_register_submit">提交</string>
+
+    <string name="title_location_permission">此應用程序需要位置權限</string>
+    <string name="text_location_permission">此應用程序需要位置權限</string>
+    <string name="ok">確定</string>
+
+    <string name="hint_username_password_input_null">帳號密碼不可為空！！</string>
+
+    <string name="error_login_fail">登入失敗...請檢查帳號密碼"</string>
 
     <string name="title_home">主頁</string>
     <string name="title_notifications">消息</string>
     <string name="title_qrscanner">掃碼回收</string>
     <string name="title_settings">設置</string>
 
-    <string name="unit_co2_gram">公克</string>
+    <string name="title_scanner_success">掃碼完成</string>
+    <string name="content_numCount_scanner_success_prefix">您在本次成功回收</string>
+    <string name="content_numCount_scanner_success_suffix">個寶特瓶</string>
+    <string name="content_weightCount_scanner_success_prefix">寶特瓶總重量為</string>
+    <string name="content_coalCount_scanner_success_prefix">減少</string>
+    <string name="content_coalCount_scanner_success_suffix">g碳足跡</string>
+    <string name="content_point_scanner_success_prefix">共獲得</string>
+    <string name="content_point_scanner_success_suffix">積分</string>
+
+    <string name="unit_co2_gram">克</string>
     <string name="title_total_co2">減少碳足跡</string>
     <string name="unit_bottle">個</string>
+    <string name="unit_point">分</string>
+    <string name="unit_money">元</string>
     <string name="title_total_bottles">累積數量</string>
     <string name="title_total_points">當前積分</string>
-    <string name="title_total_rewards">累積現金</string>
+    <string name="title_total_rewards">累積積分</string>
 
     <string name="bar_title_settings">系統設置</string>
     <string name="title_edit_personal">帳號設定</string>
@@ -25,4 +71,55 @@
 
     <string name="home_info_msg_01">· 10月份已回收45個寶特瓶</string>
     <string name="home_info_msg_02">· 本月您的環保獎章已升級成為金牌</string>
+
+
+    <string name="opinion_title">意見反饋</string>
+    <string name="opinion_abnormal">功能異常</string>
+    <string name="opinion_suggestion">產品建議：不好用，我有建議</string>
+    <string name="opinion_other">其他問題</string>
+    <string name="opinion_text">請補充詳細問題或意見</string>
+    <string name="opinion_sent">提交</string>
+    <string name="opinion_hint">請輸入不大於20字的描述</string>
+    <string name="opinion_thank">感謝您給予的寶貴意見，系統將盡快處理您的問題及建議。</string>
+    <string name="opinion_back">返回首頁</string>
+
+    <string name="about">關於</string>
+    <string name="about_app_version">版本</string>
+    <string name="about_app_information">版權信息</string>
+    <string name="version_unknown">未知版本</string>
+
+
+    <string name="setting_title">通用管理</string>
+    <string name="setting_language">語言</string>
+    <string name="setting_system">系統通知提醒</string>
+    <string name="setting_sound">聲音</string>
+    <string name="setting_vibration">震動</string>
+    <string name="setting_event">活動通知提醒</string>
+    <string name="setting_news">新聞推播通知</string>
+
+    <string name="user_file_key">user_data_file_test</string>
+    <string name="no_geo_result">查無結果</string>
+
+    <string name="market_title_cash">提現</string>
+    <string name="market_title_drawer">抽獎</string>
+    <string name="market_title_lottery">刮刮卡</string>
+    <string name="market_title_gift_info">抽獎資訊</string>
+
+    <string name="unit_draw_cash_points">積分</string>
+    <string name="unit_draw_cash_money">元</string>
+    <string name="alert_confirm_buy_product_title">確認兌換</string>
+    <string name="alert_confirm_buy_product_msg">您確定要兌換</string>
+    <string name="alert_not_enough_point_title">積分不足</string>
+    <string name="alert_not_enough_points_msg">請再接再厲，多回收一些塑料瓶賺積分唷！</string>
+    <string name="alert_ok_title">確定</string>
+    <string name="alert_confirm_buy_title">確認兌換</string>
+    <string name="alert_cancel_buy_title">取消兌換</string>
+
+    <string name="exchange_success_title">提現成功</string>
+    <string name="exchange_success_msg">恭喜您以500積分\n成功提現2.5元</string>
+
+    <string name="weather_live">實時</string>
+    <string name="weather_forecast">預報</string>
+    <string name="report_time">發布時間</string>
+    <string name="title_activity_draw_cash_success">DrawCashSuccessActivity</string>
 </resources>

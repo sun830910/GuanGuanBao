@@ -39,6 +39,8 @@ public class DrawCashMenuActivity extends AppCompatActivity {
     private DrawCashListAdapter _drawCashListAdapter;
     private AlertDialog.Builder builder;
     private Class<?> mClss;
+    private String _selectedOptionCost;
+    private String _selectedOptionRealmoney;
     private double _userPoints = 0;
 
     @Override
@@ -71,6 +73,8 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         mClss = className;
         Intent intent = new Intent(this, className);
         if (mClss.equals(DrawCashSuccessActivity.class)) {
+            intent.putExtra("COST", _selectedOptionCost);
+            intent.putExtra("MONEY", _selectedOptionRealmoney);
             startActivityForResult(intent, ActivityManager.MARKET_DRAW_CASH_SUCCESS_ACTIVITY.getValue());
         }
     }
@@ -102,7 +106,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         builder.setPositiveButton(R.string.alert_confirm_buy_title, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                buyItem(_mItemArrayList.get(position));
+                buyItem(_mItemArrayList.get(position), position);
 //                Toast.makeText(getApplicationContext(), R.string.toast_postive, Toast.LENGTH_SHORT).show();
             }
         });
@@ -199,7 +203,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         });
     }
 
-    private void buyItem(Item item) {
+    private void buyItem(final Item item, final int position) {
         if (_shoppingCart.containsKey(item)) {
             _shoppingCart.put(item, _shoppingCart.get(item) + 1);
         } else {
@@ -220,6 +224,8 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            _selectedOptionCost = _drawCashItemList.get(position).getCost();
+                            _selectedOptionRealmoney = _drawCashItemList.get(position).getRealMoney();
                             launchActivity(DrawCashSuccessActivity.class);
                         }
                     });
