@@ -224,6 +224,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
+                            _shoppingCart.clear();
                             _selectedOptionCost = _drawCashItemList.get(position).getCost();
                             _selectedOptionRealmoney = _drawCashItemList.get(position).getRealMoney();
                             launchActivity(DrawCashSuccessActivity.class);
