@@ -229,8 +229,14 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                             launchActivity(DrawCashSuccessActivity.class);
                         }
                     });
-                } else {
-//                    finish();
+                } else if (simpleHttpResponse.getCode() == -202){
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getUserData();
+                            showNoEnoughMoneyWarning();
+                        }
+                    });
                 }
             }
         });
