@@ -16,7 +16,8 @@
         android:paddingLeft="30sp"
         android:paddingRight="10sp"
         android:text="500積分"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black" />
 
 
     <TextView
@@ -30,7 +31,8 @@
         android:paddingRight="20sp"
         android:text="2.5元"
         android:textAlignment="textEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black" />
 
     <ImageView
         android:id="@+id/img_coin_single"

@@ -378,7 +378,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                             searchLiveWeather();
                         }
                     });
-
                 } else {
                     System.out.println("LOCATION-----" + R.string.no_geo_result);
                 }
