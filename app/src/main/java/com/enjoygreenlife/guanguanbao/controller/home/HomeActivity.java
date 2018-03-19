@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -45,6 +46,7 @@ import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.controller.login.LoginActivity;
 import com.enjoygreenlife.guanguanbao.controller.market.MarketHomePageActivity;
 import com.enjoygreenlife.guanguanbao.controller.scanner.BaseScannerActivity;
+import com.enjoygreenlife.guanguanbao.controller.searchMachine.SearchMachineActivity;
 import com.enjoygreenlife.guanguanbao.controller.settings.SettingsMenuActivity;
 import com.enjoygreenlife.guanguanbao.controller.weather.WeatherInfoActivity;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
@@ -73,10 +75,8 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     //AMAP
     private MapView _mapView = null;
     private AMap _aMap = null;
-    private MyLocationStyle _myLocationStyle;
+    private final ThreadLocal<MyLocationStyle> _myLocationStyle = new ThreadLocal<>();
     private LatLonPoint latLonPoint = new LatLonPoint(39.90865, 116.39751);
-    private Marker geoMarker;
-    private Marker regeoMarker;
     private GeocodeSearch geocoderSearch;
     private ArrayList<Marker> _markerList = new ArrayList<Marker>();
     private WeatherSearchQuery mquery;
@@ -97,6 +97,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private TextView _locationTextView;
     private TextView _tempreatureTextView;
     private ImageView _weatherInfoImage;
+    private Button _openMapButton;
     private RelativeLayout _currentPointsGroup;
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -144,6 +145,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             } else if (mClss.equals(WeatherInfoActivity.class)) {
                 intent.putExtra("CITY", cityName);
                 startActivityForResult(intent, ActivityManager.WEATHER_INFO_ACTIVITY.getValue());
+            } else if (mClss.equals(WeatherInfoActivity.class)) {
+                intent.putExtra("CITY", cityName);
+                startActivityForResult(intent, ActivityManager.WEATHER_INFO_ACTIVITY.getValue());
+            } else if (mClss.equals(SearchMachineActivity.class)) {
+                startActivityForResult(intent, ActivityManager.SEARCH_MACHINE_ACTIVITY.getValue());
             }
         }
     }
@@ -183,36 +189,24 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         checkLoginStatus();
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     protected void onResume() {
         super.onResume();
         _mapView.onResume();
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     protected void onPause() {
         super.onPause();
         _mapView.onPause();
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         _mapView.onSaveInstanceState(outState);
     }
 
-    /**
-     * 方法必须重写
-     */
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -247,7 +241,6 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
 
         }
     }
-
 
     private void processViews(Bundle savedInstanceState) {
         _homeView = (LinearLayout) findViewById(R.id.home_frame);
@@ -290,6 +283,14 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
             }
         });
         mapInit();
+
+        _openMapButton = (Button) findViewById(R.id.btn_open_map);
+        _openMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                launchActivity(SearchMachineActivity.class);
+            }
+        });
     }
 
     private void mapInit() {
@@ -312,9 +313,9 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     private void setUpMap() {
         // 如果要设置定位的默认状态，可以在此处进行设置
-        _myLocationStyle = new MyLocationStyle();
-        _myLocationStyle.myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//定位一次，且将视角移动到地图中心点。
-        _aMap.setMyLocationStyle(_myLocationStyle);
+        _myLocationStyle.set(new MyLocationStyle());
+        _myLocationStyle.get().myLocationType(MyLocationStyle.LOCATION_TYPE_LOCATE);//定位一次，且将视角移动到地图中心点。
+        _aMap.setMyLocationStyle(_myLocationStyle.get());
 
         _aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         _aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
