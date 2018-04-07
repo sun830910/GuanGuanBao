@@ -5,7 +5,7 @@ package com.enjoygreenlife.guanguanbao.model.ApiModel;
  */
 
 public class URLFactory {
-    private static final String DOMAIN_NAME = "http://112.74.32.77/apiServer/";
+    private static final String DOMAIN_NAME = "http://39.106.38.0:8080/GuanGuanBaoServerside/";
 
     public String getLoginURL() {
         return new String(DOMAIN_NAME + "login");
@@ -20,7 +20,7 @@ public class URLFactory {
     }
 
     public String getUerInfoURL() {
-        return new String(DOMAIN_NAME + "getUserInfo");
+        return new String(DOMAIN_NAME + "user/");
     }
 
     public String scanQRcodeURL() {

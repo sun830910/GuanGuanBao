@@ -17,7 +17,10 @@ import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
 import java.util.Locale;
+
+import okhttp3.Call;
 
 public class MarketHomePageActivity extends AppCompatActivity {
 
@@ -77,7 +80,7 @@ public class MarketHomePageActivity extends AppCompatActivity {
         String json = _apiJsonFactory.getUserInfoJson(session, userID);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
@@ -89,15 +92,20 @@ public class MarketHomePageActivity extends AppCompatActivity {
                         @Override
                         public void run() {
 //                          _progress.setVisibility(View.INVISIBLE);
-                            _mUserName.setText(userLoginResponse.getUser().getUserName());
+                            _mUserName.setText(userLoginResponse.getReturnObject().getUsername());
 
-                            String totalPointsStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getWallet()) + getResources().getString(R.string.unit_draw_cash_points);
+                            String totalPointsStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getWallet()) + getResources().getString(R.string.unit_draw_cash_points);
                             _mUserPoints.setText(totalPointsStr);
                         }
                     });
                 } else {
                     finish();
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

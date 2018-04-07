@@ -41,6 +41,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import okhttp3.Call;
+
 
 /**
  * AMapV2地图中介绍如何显示一个基本地图
@@ -295,7 +297,7 @@ public class SearchMachineActivity extends Activity implements OnClickListener, 
 		System.out.println(json);
 		// Call Connection Tool to process login
 		HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-		httpConnectionTool.postMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
+		httpConnectionTool.jsonPostMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
 			@Override
 			public void onSuccess(String result) {
 				final RecycleMachineResponse recycleMachineResponse = _apiJsonFactory.parseRecycleMachineResponse(result);
@@ -308,6 +310,11 @@ public class SearchMachineActivity extends Activity implements OnClickListener, 
 						_markerList.add(marker);
 					}
 				}
+			}
+
+			@Override
+			public void onFailure(Call call, IOException e) {
+
 			}
 		});
 	}

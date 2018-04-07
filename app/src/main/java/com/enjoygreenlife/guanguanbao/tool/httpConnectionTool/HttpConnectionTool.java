@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.Headers;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -82,7 +83,7 @@ public class HttpConnectionTool {
 
     }
 
-    public void postMethod(String url, String inputString, final HttpConnectionToolCallback callback) {
+    public void jsonPostMethod(String url, String inputString, final HttpConnectionToolCallback callback) {
         final MediaType MEDIA_TYPE_JSON
                 = MediaType.parse("application/json; charset=utf-8");
 
@@ -90,6 +91,37 @@ public class HttpConnectionTool {
         Request request = new Request.Builder()
                 .url(url)
                 .post(body)
+                .build();
+
+        _client.newCall(request)
+                .enqueue(new Callback() {
+                    @Override
+                    public void onFailure(final Call call, IOException e) {
+                        e.printStackTrace();
+                        callback.onFailure(call, e);
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        try (ResponseBody responseBody = response.body()) {
+                            if (!response.isSuccessful())
+                                throw new IOException("Unexpected code " + response);
+
+                            Headers responseHeaders = response.headers();
+                            for (int i = 0, size = responseHeaders.size(); i < size; i++) {
+                                System.out.println(responseHeaders.name(i) + ": " + responseHeaders.value(i));
+                            }
+                            callback.onSuccess(responseBody.string());
+                        }
+                    }
+                });
+    }
+
+    public void formPostMethod(String url, RequestBody requestBody, final HttpConnectionToolCallback callback) {
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
                 .build();
 
         _client.newCall(request)

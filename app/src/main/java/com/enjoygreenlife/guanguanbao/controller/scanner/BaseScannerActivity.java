@@ -18,7 +18,10 @@ import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool
 import com.google.gson.Gson;
 import com.google.zxing.Result;
 
+import java.io.IOException;
+
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import okhttp3.Call;
 
 public class BaseScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private final SharedFileHandler _sharedFileHandler = new SharedFileHandler();
@@ -100,7 +103,7 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
         System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().scanQRcodeURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().scanQRcodeURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final ScanQRCodeResponse scanQRCodeResponse = _apiJsonFactory.parseScanQRCodeResponse(result);
@@ -119,6 +122,11 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
                 } else {
                     closeActivity(false);
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

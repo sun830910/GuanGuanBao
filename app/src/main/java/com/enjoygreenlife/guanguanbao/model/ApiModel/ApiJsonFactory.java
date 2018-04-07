@@ -13,6 +13,9 @@ import com.google.gson.Gson;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
+
 /**
  * Created by luthertsai on 2017/11/18.
  */
@@ -23,8 +26,23 @@ public class ApiJsonFactory {
         return "{\"route\":\"login\",\"member\":{\"userName\":\"" + username + "\",\"userPassword\":\"" + userPassword + "\"}}";
     }
 
+    public RequestBody getLoginFormBody(String username, String userPassword) {
+        RequestBody body = new FormBody.Builder()
+                .add("username", username)
+                .add("password", userPassword)
+                .build();
+        return body;
+    }
+
     public String getUserInfoJson(String session, String userID) {
         return "{\"route\":\"getUserInfo\",\"session\":\"" + session + "\", \"userId\":" + userID + "}";
+    }
+
+    public RequestBody getUserInfoFormBody(String session) {
+        RequestBody body = new FormBody.Builder()
+                .add("session", session)
+                .build();
+        return body;
     }
 
     public String getLogoutJson(String session, String userID) {

@@ -18,6 +18,11 @@ import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.RequestBody;
+
 public class LoginActivity extends AppCompatActivity {
 
     private Class<?> mClss;
@@ -32,27 +37,31 @@ public class LoginActivity extends AppCompatActivity {
         _progress.setVisibility(View.VISIBLE);
         String json = new ApiJsonFactory().getLoginJson(_userName.getText().toString(), _userPassword.getText().toString());
 
+        RequestBody requestBody = new ApiJsonFactory().getLoginFormBody(_userName.getText().toString(), _userPassword.getText().toString());
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getLoginURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.formPostMethod(new URLFactory().getLoginURL(), requestBody, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 System.out.println(result);
                 UserLoginResponse userLoginResponse = new ApiJsonFactory().parseUserLoginResponse(result);
                 String session = userLoginResponse.getSession();
 //                System.out.println("PARSE+SESSION => " + session);
+//                System.out.println("CODE => " + userLoginResponse.getCode());
+//                System.out.println("USERID => " + userLoginResponse.getReturnObject().getUsername());
 
                 if (userLoginResponse.getCode() == 1) {
                     //Store session to SharedPreferences
                     SharedFileHandler sharedFileHandler = new SharedFileHandler();
-                    sharedFileHandler.saveUserSession(LoginActivity.this, session, userLoginResponse.getUser().getId());
+                    sharedFileHandler.saveUserSession(LoginActivity.this, session, userLoginResponse.getReturnObject().getUsername());
+//                    System.out.println(userLoginResponse.getReturnObject().getUsername());
 
                     // Update UI
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             _progress.setVisibility(View.INVISIBLE);
-//                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, "登入成功", Toast.LENGTH_LONG).show();
                             Intent intent = new Intent();
                             intent.putExtra("LOGIN_SUCCESS", true);
                             setResult(ActivityManager.LOGIN_ACTIVITY.getValue(), intent);
@@ -69,6 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

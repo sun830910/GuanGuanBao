@@ -11,8 +11,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -61,8 +59,11 @@ import com.enjoygreenlife.guanguanbao.tool.amap.AMapUtil;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
+
+import okhttp3.Call;
+import okhttp3.RequestBody;
 
 
 public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocationChangeListener,
@@ -216,6 +217,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String permissions[], int[] grantResults) {
+        //TODO
         switch (requestCode) {
             case MY_PERMISSIONS_REQUEST_LOCATION: {
                 // If request is cancelled, the result arrays are empty.
@@ -334,26 +336,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         // 设置异步逆地理编码请求
         geocoderSearch.getFromLocationAsyn(query);
 
-        getStation(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this), location);
-        /*
-        // 定位回调监听
-        if (location != null) {
-//            Log.e("amap", "onMyLocationChange 定位成功， lat: " + location.getLatitude() + " lon: " + location.getLongitude());
-            Bundle bundle = location.getExtras();
-            if (bundle != null) {
-                int errorCode = bundle.getInt(MyLocationStyle.ERROR_CODE);
-                String errorInfo = bundle.getString(MyLocationStyle.ERROR_INFO);
-                // 定位类型，可能为GPS WIFI等，具体可以参考官网的定位SDK介绍
-                int locationType = bundle.getInt(MyLocationStyle.LOCATION_TYPE);
-
-                Log.e("amap", "定位信息， code: " + errorCode + " errorInfo: " + errorInfo + " locationType: " + locationType);
-            } else {
-                Log.e("amap", "定位信息， bundle is null ");
-            }
-
-        } else {
-            Log.e("amap", "定位失败");
-        }*/
+//        getStation(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this), location);
     }
 
     /**
@@ -438,7 +421,10 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     private void checkLoginStatus() {
         _sharedFileHandler = new SharedFileHandler();
-        if (_sharedFileHandler.retreiveUserSession(HomeActivity.this) == null) {
+        String session = _sharedFileHandler.retreiveUserSession(HomeActivity.this);
+        String username = _sharedFileHandler.retreiveUserID(HomeActivity.this);
+        System.out.println("USER-------" + _sharedFileHandler.retreiveUserID(HomeActivity.this));
+        if (session == null || username == null || username.length() == 0) {
             Toast.makeText(HomeActivity.this, "尚未登入", Toast.LENGTH_LONG).show();
             launchActivity(LoginActivity.class);
         } else {
@@ -452,9 +438,13 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      */
     private void getUserData(String session, String userID) {
         String json = _apiJsonFactory.getUserInfoJson(session, userID);
+        RequestBody requestBody = _apiJsonFactory.getUserInfoFormBody(session);
+        String API_URL = new URLFactory().getUerInfoURL() + userID;
+
+        System.out.println("API:+++++" + API_URL);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.formPostMethod(API_URL, requestBody, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
@@ -466,28 +456,28 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                         @Override
                         public void run() {
 //                          _progress.setVisibility(View.INVISIBLE);
-                            _userNameText.setText(userLoginResponse.getUser().getUserName());
-                            _userPhoneText.setText(userLoginResponse.getUser().getPhoneNumber());
+                            _userNameText.setText(userLoginResponse.getReturnObject().getUsername());
+                            _userPhoneText.setText(userLoginResponse.getReturnObject().getPhone());
 
-                            String coalStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getTotalCoals()) + getResources().getString(R.string.unit_co2_gram);
-                            SpannableString coalSpanString = new SpannableString(coalStr);
-                            coalSpanString.setSpan(new RelativeSizeSpan(.4f), coalStr.length() - 1, coalStr.length(), 0); // set size
-                            _totalCO2Text.setText(coalSpanString);
-
-                            String totalNumStr = String.valueOf(userLoginResponse.getUser().getTotalNums()) + getResources().getString(R.string.unit_bottle);
-                            SpannableString totalNumSpanStr = new SpannableString(totalNumStr);
-                            totalNumSpanStr.setSpan(new RelativeSizeSpan(.5f), totalNumSpanStr.length() - 1, totalNumSpanStr.length(), 0); // set size
-                            _totalBottlesText.setText(totalNumSpanStr);
-
-                            String totalRewardStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getSumPoint()) + getResources().getString(R.string.unit_money);
-                            SpannableString totalRewardSpanStr = new SpannableString(totalRewardStr);
-                            totalRewardSpanStr.setSpan(new RelativeSizeSpan(.5f), totalRewardSpanStr.length() - 1, totalRewardSpanStr.length(), 0); // set size
-                            _totalRewards.setText(totalRewardSpanStr);
-
-                            String totalPointsStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getUser().getWallet()) + getResources().getString(R.string.unit_point);
-                            SpannableString totalPointsSpanStr = new SpannableString(totalPointsStr);
-                            totalPointsSpanStr.setSpan(new RelativeSizeSpan(.5f), totalPointsSpanStr.length() - 1, totalPointsSpanStr.length(), 0); // set size
-                            _totalPointsText.setText(totalPointsSpanStr);
+//                            String coalStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getTotalCoals()) + getResources().getString(R.string.unit_co2_gram);
+//                            SpannableString coalSpanString = new SpannableString(coalStr);
+//                            coalSpanString.setSpan(new RelativeSizeSpan(.4f), coalStr.length() - 1, coalStr.length(), 0); // set size
+//                            _totalCO2Text.setText(coalSpanString);
+//
+//                            String totalNumStr = String.valueOf(userLoginResponse.getReturnObject().getTotalNums()) + getResources().getString(R.string.unit_bottle);
+//                            SpannableString totalNumSpanStr = new SpannableString(totalNumStr);
+//                            totalNumSpanStr.setSpan(new RelativeSizeSpan(.5f), totalNumSpanStr.length() - 1, totalNumSpanStr.length(), 0); // set size
+//                            _totalBottlesText.setText(totalNumSpanStr);
+//
+//                            String totalRewardStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getSumPoint()) + getResources().getString(R.string.unit_money);
+//                            SpannableString totalRewardSpanStr = new SpannableString(totalRewardStr);
+//                            totalRewardSpanStr.setSpan(new RelativeSizeSpan(.5f), totalRewardSpanStr.length() - 1, totalRewardSpanStr.length(), 0); // set size
+//                            _totalRewards.setText(totalRewardSpanStr);
+//
+//                            String totalPointsStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getWallet()) + getResources().getString(R.string.unit_point);
+//                            SpannableString totalPointsSpanStr = new SpannableString(totalPointsStr);
+//                            totalPointsSpanStr.setSpan(new RelativeSizeSpan(.5f), totalPointsSpanStr.length() - 1, totalPointsSpanStr.length(), 0); // set size
+//                            _totalPointsText.setText(totalPointsSpanStr);
 
                             _mSwipeRefreshLayout.setRefreshing(false);
                             Toast.makeText(HomeActivity.this, "資料已更新", Toast.LENGTH_LONG).show();
@@ -496,6 +486,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                 } else {
                     launchActivity(LoginActivity.class);
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }
@@ -509,7 +504,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                launchActivity(LoginActivity.class);
+            }
+
             @Override
             public void onSuccess(String result) {
                 final RecycleMachineResponse recycleMachineResponse = _apiJsonFactory.parseRecycleMachineResponse(result);

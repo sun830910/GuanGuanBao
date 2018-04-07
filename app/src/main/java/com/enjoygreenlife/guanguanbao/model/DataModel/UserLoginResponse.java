@@ -8,7 +8,7 @@ public class UserLoginResponse {
 
     private int code = 0;
 
-    private User data = new User();
+    private User returnObject = new User();
 
     private String session = "";
 
@@ -20,8 +20,8 @@ public class UserLoginResponse {
         return code;
     }
 
-    public User getUser() {
-        return data;
+    public User getReturnObject() {
+        return returnObject;
     }
 
     public String getSession() {

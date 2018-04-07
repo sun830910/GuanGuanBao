@@ -23,10 +23,13 @@ import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.Call;
 
 public class DrawCashMenuActivity extends AppCompatActivity {
 
@@ -152,7 +155,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
 
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getItemURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getItemURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 System.out.println(result);
@@ -174,6 +177,11 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                     });
                 }
             }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
         });
     }
 
@@ -183,7 +191,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         String json = _apiJsonFactory.getUserInfoJson(session, userID);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getUerInfoURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final UserLoginResponse userLoginResponse = _apiJsonFactory.parseUserLoginResponse(result);
@@ -193,12 +201,17 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            _userPoints = userLoginResponse.getUser().getWallet();
+                            _userPoints = userLoginResponse.getReturnObject().getWallet();
                         }
                     });
                 } else {
                     finish();
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }
@@ -214,7 +227,7 @@ public class DrawCashMenuActivity extends AppCompatActivity {
         String json = _apiJsonFactory.buyItemsJson(session, userID, _shoppingCart);
         System.out.println(json);
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().buyItemURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().buyItemURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final SimpleHttpResponse simpleHttpResponse = _apiJsonFactory.parseSimpleHttpResponse(result);
@@ -239,6 +252,11 @@ public class DrawCashMenuActivity extends AppCompatActivity {
                         }
                     });
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

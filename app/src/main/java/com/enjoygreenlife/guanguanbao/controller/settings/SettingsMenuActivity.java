@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.enjoygreenlife.guanguanbao.R;
 import com.enjoygreenlife.guanguanbao.controller.settings.aboutApp.AboutAppActivity;
@@ -25,8 +24,11 @@ import com.enjoygreenlife.guanguanbao.model.ViewModel.SettingList.SettingListAda
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
 
 public class SettingsMenuActivity extends AppCompatActivity {
 
@@ -126,7 +128,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
         String json = _apiJsonFactory.getLogoutJson(_sharedFileHandler.retreiveUserSession(SettingsMenuActivity.this), _sharedFileHandler.retreiveUserID(SettingsMenuActivity.this));
         System.out.println(json);
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getLogoutURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getLogoutURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final SimpleHttpResponse simpleHttpResponse = _apiJsonFactory.parseSimpleHttpResponse(result);
@@ -134,7 +136,7 @@ public class SettingsMenuActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        _sharedFileHandler.saveUserSession(SettingsMenuActivity.this, "", 0);
+                        _sharedFileHandler.saveUserSession(SettingsMenuActivity.this, "", "");
 //                            Toast.makeText(SettingsMenuActivity.this, "已登出", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent();
                         intent.putExtra("LOGOUT", true);
@@ -142,6 +144,11 @@ public class SettingsMenuActivity extends AppCompatActivity {
                         finish();
                     }
                 });
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

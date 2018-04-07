@@ -22,6 +22,10 @@ import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool;
 import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionToolCallback;
 
+import java.io.IOException;
+
+import okhttp3.Call;
+
 public class RegisterActivity extends AppCompatActivity {
 
     private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
@@ -201,7 +205,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.postMethod(new URLFactory().getRegisterURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.jsonPostMethod(new URLFactory().getRegisterURL(), json, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
                 final SimpleHttpResponse simpleHttpResponse = _apiJsonFactory.parseSimpleHttpResponse(result);
@@ -220,6 +224,11 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(RegisterActivity.this, "註冊失敗", Toast.LENGTH_LONG).show();
                 }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+
             }
         });
     }

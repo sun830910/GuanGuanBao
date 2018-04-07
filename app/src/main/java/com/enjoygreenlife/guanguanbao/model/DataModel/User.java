@@ -7,9 +7,9 @@ package com.enjoygreenlife.guanguanbao.model.DataModel;
 
 public class User {
 
-    private int id = 0;
+    private int user_id = 0;
 
-    private String userName = "";
+    private String username = "";
 
     private String profilePhoto = "";
 
@@ -19,7 +19,7 @@ public class User {
 
     private String address = "";
 
-    private String phoneNumber = "";
+    private String phone = "";
 
     private String birthday = "";
 
@@ -45,12 +45,12 @@ public class User {
 
     }
 
-    public int getId() {
-        return id;
+    public int getUser_id() {
+        return user_id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
     public String getProfilePhoto() {
@@ -69,8 +69,8 @@ public class User {
         return address;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone() {
+        return phone;
     }
 
     public String getBirthday() {
