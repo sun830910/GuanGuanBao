@@ -7,45 +7,31 @@ package com.enjoygreenlife.guanguanbao.model.DataModel;
 
 public class User {
 
-    private int user_id = 0;
+    private Integer user_id;
+    private String username;
+    private String password;
+    private String email;
+    private String phone;
+    private String avatar;
+    private String session;
+    private String wechat;
+    private String alipay;
+    private String name;
+    private String birthday;
+    private Integer wallet = 0;
+    private Integer lock_wallet = 0;
+    private String latest_ip;
+    private Integer totalCount = 0;
+    private Integer totalProfit = 0;
+    private Double totalCoal = 0.0;
+    private Double totalWeight = 0.0;
 
-    private String username = "";
-
-    private String profilePhoto = "";
-
-    private double wallet = 0.0;
-
-    private double lockingWallet = 0.0;
-
-    private String address = "";
-
-    private String phone = "";
-
-    private String birthday = "";
-
-    private int gender = 0;
-
-    private String email = "";
-
-    private String ali = "";
-
-    private String qq = "";
-
-    private String wechat = "";
-
-    private int rankId = 0;
-
-    private double sumPoint = 0.0;
-
-    private int totalNums = 0;
-
-    private double totalCoals = 0;
 
     public User() {
 
     }
 
-    public int getUser_id() {
+    public Integer getUser_id() {
         return user_id;
     }
 
@@ -53,63 +39,67 @@ public class User {
         return username;
     }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
-
-    public double getWallet() {
-        return wallet;
-    }
-
-    public double getLockingWallet() {
-        return wallet;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getBirthday() {
-        return birthday;
-    }
-
-    public int getGender() {
-        return gender;
+    public String getPassword() {
+        return password;
     }
 
     public String getEmail() {
         return email;
     }
 
-    public String getAli() {
-        return ali;
+    public String getPhone() {
+        return phone;
     }
 
-    public String getQq() {
-        return qq;
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public String getSession() {
+        return session;
     }
 
     public String getWechat() {
         return wechat;
     }
 
-    public int getRankId() {
-        return rankId;
+    public String getAlipay() {
+        return alipay;
     }
 
-    public double getSumPoint() {
-        return sumPoint;
+    public String getName() {
+        return name;
     }
 
-    public int getTotalNums() {
-        return totalNums;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public double getTotalCoals() {
-        return totalCoals;
+    public Integer getWallet() {
+        return wallet;
+    }
+
+    public Integer getLock_wallet() {
+        return lock_wallet;
+    }
+
+    public String getLatest_ip() {
+        return latest_ip;
+    }
+
+    public Integer getTotalCount() {
+        return totalCount;
+    }
+
+    public Integer getTotalProfit() {
+        return totalProfit;
+    }
+
+    public Double getTotalCoal() {
+        return totalCoal;
+    }
+
+    public Double getTotalWeight() {
+        return totalWeight;
     }
 }

@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -61,6 +63,7 @@ import com.enjoygreenlife.guanguanbao.tool.httpConnectionTool.HttpConnectionTool
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import okhttp3.Call;
 import okhttp3.RequestBody;
@@ -423,12 +426,12 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
         _sharedFileHandler = new SharedFileHandler();
         String session = _sharedFileHandler.retreiveUserSession(HomeActivity.this);
         String username = _sharedFileHandler.retreiveUserID(HomeActivity.this);
-        System.out.println("USER-------" + _sharedFileHandler.retreiveUserID(HomeActivity.this));
+//        System.out.println("USER-------" + _sharedFileHandler.retreiveUserID(HomeActivity.this));
         if (session == null || username == null || username.length() == 0) {
             Toast.makeText(HomeActivity.this, "尚未登入", Toast.LENGTH_LONG).show();
             launchActivity(LoginActivity.class);
         } else {
-            System.out.println("SESSION: " + _sharedFileHandler.retreiveUserSession(HomeActivity.this));
+//            System.out.println("SESSION: " + _sharedFileHandler.retreiveUserSession(HomeActivity.this));
             getUserData(_sharedFileHandler.retreiveUserSession(HomeActivity.this), _sharedFileHandler.retreiveUserID(HomeActivity.this));
         }
     }
@@ -437,11 +440,11 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
      * Call it for Getting User Data
      */
     private void getUserData(String session, String userID) {
-        String json = _apiJsonFactory.getUserInfoJson(session, userID);
+//        String json = _apiJsonFactory.getUserInfoJson(session, userID);
         RequestBody requestBody = _apiJsonFactory.getUserInfoFormBody(session);
         String API_URL = new URLFactory().getUerInfoURL() + userID;
 
-        System.out.println("API:+++++" + API_URL);
+//        System.out.println("API:+++++" + API_URL);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.formPostMethod(API_URL, requestBody, new HttpConnectionToolCallback() {
@@ -459,25 +462,25 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
                             _userNameText.setText(userLoginResponse.getReturnObject().getUsername());
                             _userPhoneText.setText(userLoginResponse.getReturnObject().getPhone());
 
-//                            String coalStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getTotalCoals()) + getResources().getString(R.string.unit_co2_gram);
-//                            SpannableString coalSpanString = new SpannableString(coalStr);
-//                            coalSpanString.setSpan(new RelativeSizeSpan(.4f), coalStr.length() - 1, coalStr.length(), 0); // set size
-//                            _totalCO2Text.setText(coalSpanString);
-//
-//                            String totalNumStr = String.valueOf(userLoginResponse.getReturnObject().getTotalNums()) + getResources().getString(R.string.unit_bottle);
-//                            SpannableString totalNumSpanStr = new SpannableString(totalNumStr);
-//                            totalNumSpanStr.setSpan(new RelativeSizeSpan(.5f), totalNumSpanStr.length() - 1, totalNumSpanStr.length(), 0); // set size
-//                            _totalBottlesText.setText(totalNumSpanStr);
-//
-//                            String totalRewardStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getSumPoint()) + getResources().getString(R.string.unit_money);
-//                            SpannableString totalRewardSpanStr = new SpannableString(totalRewardStr);
-//                            totalRewardSpanStr.setSpan(new RelativeSizeSpan(.5f), totalRewardSpanStr.length() - 1, totalRewardSpanStr.length(), 0); // set size
-//                            _totalRewards.setText(totalRewardSpanStr);
-//
-//                            String totalPointsStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getWallet()) + getResources().getString(R.string.unit_point);
-//                            SpannableString totalPointsSpanStr = new SpannableString(totalPointsStr);
-//                            totalPointsSpanStr.setSpan(new RelativeSizeSpan(.5f), totalPointsSpanStr.length() - 1, totalPointsSpanStr.length(), 0); // set size
-//                            _totalPointsText.setText(totalPointsSpanStr);
+                            String coalStr = String.format(Locale.getDefault(), "%.0f", userLoginResponse.getReturnObject().getTotalCoal()) + getResources().getString(R.string.unit_co2_gram);
+                            SpannableString coalSpanString = new SpannableString(coalStr);
+                            coalSpanString.setSpan(new RelativeSizeSpan(.4f), coalStr.length() - 1, coalStr.length(), 0); // set size
+                            _totalCO2Text.setText(coalSpanString);
+
+                            String totalNumStr = String.valueOf(userLoginResponse.getReturnObject().getTotalCount()) + getResources().getString(R.string.unit_bottle);
+                            SpannableString totalNumSpanStr = new SpannableString(totalNumStr);
+                            totalNumSpanStr.setSpan(new RelativeSizeSpan(.5f), totalNumSpanStr.length() - 1, totalNumSpanStr.length(), 0); // set size
+                            _totalBottlesText.setText(totalNumSpanStr);
+
+                            String totalRewardStr = String.valueOf(userLoginResponse.getReturnObject().getTotalProfit()) + getResources().getString(R.string.unit_point);
+                            SpannableString totalRewardSpanStr = new SpannableString(totalRewardStr);
+                            totalRewardSpanStr.setSpan(new RelativeSizeSpan(.5f), totalRewardSpanStr.length() - 1, totalRewardSpanStr.length(), 0); // set size
+                            _totalRewards.setText(totalRewardSpanStr);
+
+                            String totalPointsStr = String.valueOf(userLoginResponse.getReturnObject().getWallet()) + getResources().getString(R.string.unit_point);
+                            SpannableString totalPointsSpanStr = new SpannableString(totalPointsStr);
+                            totalPointsSpanStr.setSpan(new RelativeSizeSpan(.5f), totalPointsSpanStr.length() - 1, totalPointsSpanStr.length(), 0); // set size
+                            _totalPointsText.setText(totalPointsSpanStr);
 
                             _mSwipeRefreshLayout.setRefreshing(false);
                             Toast.makeText(HomeActivity.this, "資料已更新", Toast.LENGTH_LONG).show();
@@ -501,7 +504,7 @@ public class HomeActivity extends AppCompatActivity implements AMap.OnMyLocation
     private void getStation(String session, String userID, Location location) {
         cleanMarkerOnMap();
         String json = _apiJsonFactory.getStationJson(session, userID, location);
-        System.out.println(json);
+//        System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
         httpConnectionTool.jsonPostMethod(new URLFactory().getStationURL(), json, new HttpConnectionToolCallback() {

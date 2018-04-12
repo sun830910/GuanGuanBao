@@ -70,6 +70,16 @@ public class ApiJsonFactory {
                 "}";
     }
 
+    public RequestBody getStationFormBody(String session, String userID, Location location) {
+        RequestBody body = new FormBody.Builder()
+                .add("latitide", "" + location.getLatitude())
+                .add("longitude", "" + location.getLongitude())
+                .add("session", session)
+                .add("userID", userID)
+                .build();
+        return body;
+    }
+
     public String getRegisterJson(String account, String password, String phone, String mail) {
         return "{" +
                 "\"route\":\"register\"," +
