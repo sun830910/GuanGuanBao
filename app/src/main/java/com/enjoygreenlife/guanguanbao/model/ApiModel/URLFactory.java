@@ -24,7 +24,7 @@ public class URLFactory {
     }
 
     public String scanQRcodeURL() {
-        return new String(DOMAIN_NAME + "scanQRcode");
+        return new String(DOMAIN_NAME + "verifyQRCode");
     }
 
     public String getStationURL() {

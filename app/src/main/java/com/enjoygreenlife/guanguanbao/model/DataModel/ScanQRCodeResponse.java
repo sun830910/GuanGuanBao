@@ -6,13 +6,21 @@ package com.enjoygreenlife.guanguanbao.model.DataModel;
 
 public class ScanQRCodeResponse {
     private int code = 0;
-    private ScanQRCodeResult data = new ScanQRCodeResult();
-
-    public ScanQRCodeResult getData() {
-        return data;
-    }
+    private RecycleInvoice returnObject = new RecycleInvoice();
 
     public int getCode() {
         return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public RecycleInvoice getReturnObject() {
+        return returnObject;
+    }
+
+    public void setReturnObject(RecycleInvoice returnObject) {
+        this.returnObject = returnObject;
     }
 }

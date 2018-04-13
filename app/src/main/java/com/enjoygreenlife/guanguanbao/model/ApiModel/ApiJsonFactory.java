@@ -49,6 +49,15 @@ public class ApiJsonFactory {
         return "{\"route\":\"logout\",\"session\":\"" + session + "\", \"userId\":" + userID + "}";
     }
 
+    public RequestBody scanQRcodeFormBody(String session, String userID, String QRCode) {
+        RequestBody body = new FormBody.Builder()
+                .add("session", session)
+                .add("username", userID)
+                .add("hashCode", QRCode)
+                .build();
+        return body;
+    }
+
     public String scanQRcodeJson(String session, String userID, String QRCode, String QRCodeImg, String orderNumber) {
         return "{" +
                 "\"route\":\"scanQRcode\"," +

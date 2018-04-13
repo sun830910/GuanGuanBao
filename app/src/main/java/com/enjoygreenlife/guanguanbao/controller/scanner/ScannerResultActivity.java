@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.enjoygreenlife.guanguanbao.R;
+import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleInvoice;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
 import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
 
 public class ScannerResultActivity extends AppCompatActivity {
-    private ScanQRCodeResult _result = new ScanQRCodeResult();
     private TextView _numCountTextView;
     private TextView _weightCountTextView;
     private TextView _coalCountTextView;
@@ -47,15 +47,11 @@ public class ScannerResultActivity extends AppCompatActivity {
     }
 
     private void processData() {
-        _result.setTotalNums(getIntent().getStringExtra("NUMBER_OF_BOTTLES"));
-        _result.setTotalWeight(getIntent().getStringExtra("WEIGHT_OF_BOTTLES"));
-        _result.setTotalCoals(getIntent().getStringExtra("WEIGHT_OF_COALS"));
-        _result.setTotalPoint(getIntent().getStringExtra("POINTS"));
 
-        String resultStrNumber = getText(R.string.content_numCount_scanner_success_prefix) + _result.getTotalNums() + getText(R.string.content_numCount_scanner_success_suffix);
-        String resultStrWeightCount = getText(R.string.content_weightCount_scanner_success_prefix) + _result.getTotalWeight() + "g";
-        String resultStrCoalCount = getText(R.string.content_coalCount_scanner_success_prefix) + _result.getTotalCoals() + getText(R.string.content_coalCount_scanner_success_suffix);
-        String resultStrPointCount = getText(R.string.content_point_scanner_success_prefix) + _result.getTotalPoint() + getText(R.string.content_point_scanner_success_suffix);
+        String resultStrNumber = getText(R.string.content_numCount_scanner_success_prefix) + getIntent().getStringExtra("NUMBER_OF_BOTTLES") + getText(R.string.content_numCount_scanner_success_suffix);
+        String resultStrWeightCount = getText(R.string.content_weightCount_scanner_success_prefix) + getIntent().getStringExtra("WEIGHT_OF_BOTTLES") + "g";
+        String resultStrCoalCount = getText(R.string.content_coalCount_scanner_success_prefix) + getIntent().getStringExtra("WEIGHT_OF_COALS") + getText(R.string.content_coalCount_scanner_success_suffix);
+        String resultStrPointCount = getText(R.string.content_point_scanner_success_prefix) + getIntent().getStringExtra("POINTS") + getText(R.string.content_point_scanner_success_suffix);
 
         _numCountTextView.setText(resultStrNumber);
         _weightCountTextView.setText(resultStrWeightCount);

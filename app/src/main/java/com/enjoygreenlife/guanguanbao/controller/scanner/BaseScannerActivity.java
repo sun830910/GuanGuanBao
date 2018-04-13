@@ -10,6 +10,7 @@ import com.enjoygreenlife.guanguanbao.model.ApiModel.ApiJsonFactory;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.SharedFileHandler;
 import com.enjoygreenlife.guanguanbao.model.ApiModel.URLFactory;
 import com.enjoygreenlife.guanguanbao.model.DataModel.QRCodeStructure;
+import com.enjoygreenlife.guanguanbao.model.DataModel.RecycleInvoice;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResponse;
 import com.enjoygreenlife.guanguanbao.model.DataModel.ScanQRCodeResult;
 import com.enjoygreenlife.guanguanbao.model.ViewModel.References.ActivityManager;
@@ -22,13 +23,15 @@ import java.io.IOException;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 import okhttp3.Call;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 public class BaseScannerActivity extends AppCompatActivity implements ZXingScannerView.ResultHandler {
     private final SharedFileHandler _sharedFileHandler = new SharedFileHandler();
     private final ApiJsonFactory _apiJsonFactory = new ApiJsonFactory();
     private ZXingScannerView mScannerView;
     private Class<?> mClss;
-    private ScanQRCodeResult _scanQRCodeResult = new ScanQRCodeResult();
+    private RecycleInvoice _scanQRCodeResult = new RecycleInvoice();
 
     @Override
     public void onCreate(Bundle state) {
@@ -63,10 +66,10 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
         mClss = className;
         if (mClss.equals(ScannerResultActivity.class)) {
             Intent intent = new Intent(BaseScannerActivity.this, className);
-            intent.putExtra("NUMBER_OF_BOTTLES", _scanQRCodeResult.getTotalNums());
-            intent.putExtra("WEIGHT_OF_BOTTLES", _scanQRCodeResult.getTotalWeight());
-            intent.putExtra("WEIGHT_OF_COALS", _scanQRCodeResult.getTotalCoals());
-            intent.putExtra("POINTS", _scanQRCodeResult.getTotalPoint());
+            intent.putExtra("NUMBER_OF_BOTTLES", _scanQRCodeResult.getItemCount().toString());
+            intent.putExtra("WEIGHT_OF_BOTTLES", _scanQRCodeResult.getWeight().toString());
+            intent.putExtra("WEIGHT_OF_COALS", _scanQRCodeResult.getCoal().toString());
+            intent.putExtra("POINTS", _scanQRCodeResult.getProfit().toString());
             startActivityForResult(intent, ActivityManager.SCANNER_RESULT_ACTIVITY.getValue());
         }
     }
@@ -83,10 +86,11 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
     @Override
     public void handleResult(Result rawResult) {
 //        System.out.println("RESULT " + rawResult.getText());
-        QRCodeStructure qrCodeStructure = new Gson().fromJson(rawResult.getText(), QRCodeStructure.class);
+//        QRCodeStructure qrCodeStructure = new Gson().fromJson(rawResult.getText(), QRCodeStructure.class);
+        String qrcodeContent = rawResult.getText();
         String session = _sharedFileHandler.retreiveUserSession(BaseScannerActivity.this);
         String userID = _sharedFileHandler.retreiveUserID(BaseScannerActivity.this);
-        getScannerResult(session, userID, qrCodeStructure.getQRCode(), qrCodeStructure.getQRcodeImg(), qrCodeStructure.getOrderNo());
+        getScannerResult(session, userID, qrcodeContent);
 
 //        Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {
@@ -97,19 +101,19 @@ public class BaseScannerActivity extends AppCompatActivity implements ZXingScann
 //        }, 2000);
     }
 
-    private void getScannerResult(String session, String userID, String QRCode, String QRCodeImg, String orderNumber) {
-
-        String json = _apiJsonFactory.scanQRcodeJson(session, userID, QRCode, QRCodeImg, orderNumber);
-        System.out.println(json);
+    private void getScannerResult(String session, String userID, String QRCode) {
+        RequestBody requestBody = _apiJsonFactory.scanQRcodeFormBody(session, userID, QRCode);
+//        String json = _apiJsonFactory.scanQRcodeJson(session, userID, QRCode, QRCodeImg, orderNumber);
+//        System.out.println(json);
         // Call Connection Tool to process login
         HttpConnectionTool httpConnectionTool = new HttpConnectionTool();
-        httpConnectionTool.jsonPostMethod(new URLFactory().scanQRcodeURL(), json, new HttpConnectionToolCallback() {
+        httpConnectionTool.formPostMethod(new URLFactory().scanQRcodeURL(), requestBody, new HttpConnectionToolCallback() {
             @Override
             public void onSuccess(String result) {
+                System.out.println("SCANNER++++++++" + result);
                 final ScanQRCodeResponse scanQRCodeResponse = _apiJsonFactory.parseScanQRCodeResponse(result);
-//                System.out.println("SCANNER++++++++" + result);
                 if (scanQRCodeResponse.getCode() == 1) {
-                    _scanQRCodeResult = scanQRCodeResponse.getData();
+                    _scanQRCodeResult = scanQRCodeResponse.getReturnObject();
                     launchActivity(ScannerResultActivity.class);
                 } else if (scanQRCodeResponse.getCode() == -5) {
                     runOnUiThread(new Runnable() {
